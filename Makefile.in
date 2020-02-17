@@ -336,4 +336,3 @@ distfiles::
 	@$(MAKE) $(MKARGS) crosstools-toolchain
 	@$(MAKE) $(MKARGS) crosstools-toolchain features
 	@+$(CALL) $(MMAKE) $(MMAKE_OPTIONS) AROS.$@
-

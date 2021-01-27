@@ -29,7 +29,7 @@ include $(SRCDIR)/$(CURDIR)/mesa.cfg
 #MM- workbench-libs-complete : mesa3dgl-library-$(AROS_TARGET_TOOLCHAIN)
 #MM- mesa3dgl-library-yes : mesa3dgl-library
 
-#MM mesa3dgl-library : includes workbench-libs-dxtn-includes linklibs-galliumauxiliary workbench-libs-gallium-linklib mesa3dgl-linklibs
+#MM mesa3dgl-library : includes workbench-libs-dxtn-includes linklibs-galliumauxiliary workbench-libs-gallium-linklib mesa3dgl-linklibs mesa3dgl-library-env
 
 SHARED_LIB_SOURCES = \
             emul_arosc \
@@ -67,9 +67,6 @@ MESAGL_LIBRARY_SOURCES_C := \
             $(SHARED_LIB_SOURCES) \
             $(MESA3DGL_SOURCES)
 
-MESAGL_LIBRARY_SOURCES_CXX := \
-            mesa3dgl_
-
 ifneq ($(mesa3dgl_ENTRYPOINTS),)
 MESA_COMPILEOPTIONS += $(CFLAGS_FUNCTION_SECTIONS)
 #USER_LDFLAGS := -Wl,--gc-sections $(mesa3dgl_ENTRYPOINTS)
@@ -77,19 +74,23 @@ endif
 
 USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
   -L$(top_libdir) \
-  -Wl,--start-group -lglapi -lmesa -lcompiler -lgalliumauxiliary -lgallium -lmesautil \
-  -lpthread $(MESA_ZLIB) -lposixc_rel -lstdcio_rel -lstdc_rel
+  -Wl,--start-group -lpthread
 
 #USER_LDFLAGS += -Wl,--end-group
 #USER_CPPFLAGS += -DDEBUG=1
 
 %build_module_library mmake=mesa3dgl-library \
-  modname=mesa3dgl modtype=library \
-  conffile=$(SRCDIR)/workbench/libs/gl/gl.conf \
-  confoverride=mesa3dgl.conf \
+  modname="mesa3dgl$(MESAGLBUILD)" modtype=library \
+  conffile="$(SRCDIR)/workbench/libs/gl/gl.conf" \
+  confoverride="$(top_srcdir)/mesa3dgl.conf" objdir="$(OBJDIR)/$(MESAGLVERSION)" \
   files="$(MESAGL_LIBRARY_SOURCES_C)" \
-  cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-  uselibs=""
+  alwayscxxlink=yes uselibs="glapi mesa compiler galliumauxiliary gallium mesautil"
+
+$(AROS_ENVARC)/SYS/GL.default:
+	@$(ECHO) "mesa3dgl$(MESAGLBUILD)" > $(AROS_ENVARC)/SYS/GL.default
+
+#MM
+mesa3dgl-library-env : $(AROS_ENVARC)/SYS/GL.default
 
 #
 # mesa3d includes...

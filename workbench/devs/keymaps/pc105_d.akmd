@@ -1,5 +1,6 @@
 # German PC105 amiga keymap descriptor
 # (c) 2020 The AROS Development Team.
+# v1.0
 
 ## begin config
 keymap: pc105_d
@@ -207,8 +208,8 @@ id: i_descr
 id: o_descr
 1, 0x10,
 1, 0x25,
-0, 'ø', /* 0xF8 */
-0, 'Ø', /* 0xD8 */
+0, 'ø',
+0, 'Ø',
 0, 0x0F,
 0, 0x0F,
 0, 0x8F,

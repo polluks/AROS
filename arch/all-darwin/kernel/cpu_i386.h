@@ -1,5 +1,5 @@
 /*
-    Copyright © 1995-2010, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -15,7 +15,30 @@ typedef struct ucontext *regs_t;
 
 #else
 
+#if defined(_WANT_UCONTEXT) && defined(_HAVE_CONFIG_H)
+#include <aros/host-conf.h>
+#endif
+
+#ifndef _XOPEN_SOURCE
+/* On Darwin this definition is required by ucontext.h (which is marked as deprecated) 
+ * At least on Debian 8, _XOPEN_SOURCE is already defined in /usr/include/features.h 
+ */
+#define _XOPEN_SOURCE
+#endif
+
+#if defined(HAVE_UCONTEXT_H)
+#define _HAVE_UCONTEXT
+#include <ucontext.h>
+#else
+#if defined(HAVE_SYS_UCONTEXT_H)
+#define _HAVE_UCONTEXT
 #include <sys/ucontext.h>
+#endif
+#endif
+
+#if defined(_WANT_UCONTEXT) && !defined(_HAVE_UCONTEXT)
+#warning "missing support for ucontext_t on this platform"
+#endif
 
 #define SIGCORE_NEED_SA_SIGINFO
 
@@ -127,7 +150,7 @@ typedef void (*SIGHANDLER_T)(int);
     SAVE_CPU((cc)->regs, sc);								\
     if ((cc)->regs.FXData)								\
     {											\
-    	(cc)->regs.Flags |= ECF_FPX;							\
+    	(cc)->regs.Flags |= ECF_FPFXS;							\
     	CopyMemQuick(&FPSTATE(sc), (cc)->regs.FXData, sizeof(struct FPXContext));	\
     }
 
@@ -137,7 +160,7 @@ typedef void (*SIGHANDLER_T)(int);
  */
 #define RESTOREREGS(cc, sc)                                    				\
     RESTORE_CPU((cc)->regs, sc);							\
-    if ((cc)->regs.Flags & ECF_FPX)							\
+    if ((cc)->regs.Flags & ECF_FPFXS)							\
 	CopyMemQuick((cc)->regs.FXData, &FPSTATE(sc), sizeof(struct FPXContext));
 
 /* Print signal context. Used in crash handler. */

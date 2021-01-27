@@ -2,7 +2,7 @@
 #define _ATA_H
 
 /*
-    Copyright © 2004-2019, The AROS Development Team. All rights reserved.
+    Copyright © 2004-2020, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: ata.device main private include file
@@ -58,11 +58,6 @@ struct ata_Bus;
 struct ataBase
 {
     struct Device           	ata_Device;    			/* Exec device structure                */
-    struct Task            	*ata_Daemon;    		/* master task pointer                  */
-    struct MsgPort         	*DaemonPort;    		/* Daemon's message port                */
-    struct MinList          	Daemon_ios;    			/* Daemon's IORequests                  */
-    struct SignalSemaphore  	DaemonSem;
-    struct Task            	*daemonParent;  		/* Who sends control requests to daemon */
     int                     	ata__buscount; 			/* Number of all buses                  */
     struct SignalSemaphore  	DetectionSem;  			/* Device detection semaphore           */
 
@@ -83,6 +78,8 @@ struct ataBase
     struct Library         	*ata_UtilityBase;
     BPTR                    	ata_SegList;
 
+    OOP_Object                  *storageRoot;
+
     /* Bus HIDD classes */
     OOP_Class              	*ataClass;
     OOP_Class              	*busClass;
@@ -98,6 +95,7 @@ struct ataBase
 #if defined(__OOP_NOMETHODBASES__)
     OOP_MethodID                hwMethodBase;
     OOP_MethodID                busMethodBase;
+    OOP_MethodID                HiddSMethodBase;
     OOP_MethodID                HiddSCMethodBase;
 #endif
 
@@ -119,9 +117,12 @@ struct ataBase
 
 #if defined(__OOP_NOMETHODBASES__)
 #undef HWBase
-#undef HiddATABusBase
 #define HWBase                          (ATABase->hwMethodBase)
+#undef HiddATABusBase
 #define HiddATABusBase                  (ATABase->busMethodBase)
+#undef HiddStorageBase
+#define HiddStorageBase                 (ATABase->HiddSMethodBase)
+#undef HiddStorageControllerBase
 #define HiddStorageControllerBase       (ATABase->HiddSCMethodBase)
 #endif
 
@@ -133,6 +134,12 @@ struct ata_Controller
     struct Node         	ac_Node;
     OOP_Class           	*ac_Class;
     OOP_Object          	*ac_Object;
+
+    struct MsgPort         	*DaemonPort;    		/* Daemon's message port                */
+    struct MinList          	Daemon_ios;    			/* Daemon's IORequests                  */
+    struct SignalSemaphore  	DaemonSem;
+    struct Task            	*ac_daemonParent;  		/* Who sends control requests to daemon */
+    struct Task            	*ac_Daemon;
 };
 
 /*
@@ -141,6 +148,7 @@ struct ata_Controller
 struct ata_Bus
 {
    struct ataBase          	*ab_Base;  			/* device self */
+    OOP_Object          	*ab_Object;
 
    /** Bus object data **/
    struct ATA_BusInterface	*busVectors;     		/* Control vector table     */
@@ -308,6 +316,8 @@ struct ata_Unit
    struct ata_Bus     *au_Bus;         /* Bus on which this unit is */
    struct IOStdReq    *DaemonReq;      /* Disk change monitoring request */
 
+    struct Node         *au_IDNode;
+    
    ULONG               au_XferModes;   /* available transfer modes */
    ULONG               au_UseModes;    /* Used transfer modes */
 
@@ -391,8 +401,8 @@ BOOL ata_setup_unit(struct ata_Bus *bus, struct ata_Unit *unit);
 void ata_init_unit(struct ata_Bus *bus, struct ata_Unit *unit, UBYTE u);
 
 BOOL ata_RegisterVolume(ULONG StartCyl, ULONG EndCyl, struct ata_Unit *unit);
-void BusTaskCode(struct ata_Bus *bus, struct ataBase *ATABase);
-void DaemonCode(struct ataBase *LIBBASE);
+void BusTaskCode(struct ataBase *ATABase, struct ata_Bus *bus);
+void DaemonCode(struct ataBase *LIBBASE, struct ata_Controller *ataNode);
 
 BYTE SCSIEmu(struct ata_Unit*, struct SCSICmd*);
 

@@ -1,5 +1,5 @@
 /*
-    Copyright © 2004-2019, The AROS Development Team. All rights reserved
+    Copyright © 2004-2020, The AROS Development Team. All rights reserved
     $Id$
 
     Desc:
@@ -874,13 +874,13 @@ AROS_LH1(ULONG, GetBlkSize,
  * The check is done by sending HD_SCSICMD+1 command (internal testchanged
  * command). ATAPI units should already handle the command further.
  */
-void DaemonCode(struct ataBase *ATABase)
+void DaemonCode(struct ataBase *ATABase, struct ata_Controller *ataNode)
 {
     struct IORequest *timer;	// timer
     UBYTE b = 0;
     ULONG sigs;
 
-    D(bug("[ATA**] You woke up DAEMON\n"));
+    D(bug("[ATA**] ATA DAEMON woke for controller @ 0x%p\n", ataNode));
 
     /*
      * Prepare message ports and timer.device's request
@@ -891,7 +891,7 @@ void DaemonCode(struct ataBase *ATABase)
         D(bug("[ATA++] Failed to open timer!\n"));
 
         Forbid();
-        Signal(ATABase->daemonParent, SIGF_SINGLE);
+        Signal(ataNode->ac_daemonParent, SIGF_SINGLE);
         return;
     }
 
@@ -900,13 +900,13 @@ void DaemonCode(struct ataBase *ATABase)
     {
         ata_CloseTimer(timer);
         Forbid();
-        Signal(ATABase->daemonParent, SIGF_SINGLE);
+        Signal(ataNode->ac_daemonParent, SIGF_SINGLE);
         return;
     }
 
     /* This also signals that we have initialized successfully */
-    ATABase->ata_Daemon = FindTask(NULL);
-    Signal(ATABase->daemonParent, SIGF_SINGLE);
+    ataNode->ac_Daemon = FindTask(NULL);
+    Signal(ataNode->ac_daemonParent, SIGF_SINGLE);
 
     D(bug("[ATA++] Starting sweep medium presence detection\n"));
 
@@ -931,9 +931,9 @@ void DaemonCode(struct ataBase *ATABase)
             struct IOStdReq *ios;
 
             DB2(bug("[ATA++] Detecting media presence\n"));
-            ObtainSemaphore(&ATABase->DaemonSem);
+            ObtainSemaphore(&ataNode->DaemonSem);
 
-            ForeachNode(&ATABase->Daemon_ios, ios)
+            ForeachNode(&ataNode->Daemon_ios, ios)
             {
                 /* Using the request will clobber its Node. Save links. */
                 struct Node *s = ios->io_Message.mn_Node.ln_Succ;
@@ -945,7 +945,7 @@ void DaemonCode(struct ataBase *ATABase)
                 ios->io_Message.mn_Node.ln_Pred = p;
             }
 
-            ReleaseSemaphore(&ATABase->DaemonSem);
+            ReleaseSemaphore(&ataNode->DaemonSem);
         }
 
         /*
@@ -958,12 +958,13 @@ void DaemonCode(struct ataBase *ATABase)
         b++;
     } while (!sigs);
 
+    ataNode->ac_Daemon = NULL;
     D(bug("[ATA++] Daemon quits\n"));
 
     ata_CloseTimer(timer);
 
     Forbid();
-    Signal(ATABase->daemonParent, SIGF_SINGLE);
+    Signal(ataNode->ac_daemonParent, SIGF_SINGLE);
 }
 
 /*
@@ -971,7 +972,7 @@ void DaemonCode(struct ataBase *ATABase)
     in endless loop and calls proper handling function. The IO is Semaphore-
     protected within a bus.
 */
-void BusTaskCode(struct ata_Bus *bus, struct ataBase *ATABase)
+void BusTaskCode(struct ataBase *ATABase, struct ata_Bus *bus)
 {
     ULONG sig;
     int iter;
@@ -979,7 +980,10 @@ void BusTaskCode(struct ata_Bus *bus, struct ataBase *ATABase)
     OOP_Object *unitObj;
     struct ata_Unit *unit;
 
-    DINIT(bug("[ATA**] Task started (bus: %u)\n", bus->ab_BusNum));
+    DINIT(
+        bug("[ATA**] %s: Task started (Bus: %u)\n", __func__, bus->ab_BusNum);
+        bug("[ATA**] %s: Bus MsgPort @ 0x%p\n", __func__, bus->ab_MsgPort);
+    )
 
     bus->ab_Timer = ata_OpenTimer(ATABase);
     bus->ab_BounceBufferPool = CreatePool(MEMF_CLEAR | MEMF_31BIT, 131072, 65536);
@@ -993,9 +997,11 @@ void BusTaskCode(struct ata_Bus *bus, struct ataBase *ATABase)
 
     sig = 1L << bus->ab_MsgPort->mp_SigBit;
 
+    DINIT(bug("[ATA**] %s: Sleepy SigBit = %d, MPSigBit = %d\n", __func__, bus->ab_SleepySignal, bus->ab_MsgPort->mp_SigBit);)
+
     for (iter = 0; iter < MAX_BUSUNITS; ++iter)
     {
-        DINIT(bug("[ATA**] Device %u type %d\n", iter, bus->ab_Dev[iter]));
+        DINIT(bug("[ATA**] %s: Device %u type %d\n", __func__, iter, bus->ab_Dev[iter]);)
 
         if (bus->ab_Dev[iter] > DEV_UNKNOWN)
         {
@@ -1003,55 +1009,77 @@ void BusTaskCode(struct ata_Bus *bus, struct ataBase *ATABase)
             if (unitObj)
             {
                 unit = OOP_INST_DATA(ATABase->unitClass, unitObj);
+                D(bug("[ATA**] %s: UnitObj @ 0x%p, data @ 0x%p\n", __func__, unitObj, unit);)
                 ata_init_unit(bus, unit, iter);
+                D(bug("[ATA**] %s:     initialized\n", __func__);)
                 if (ata_setup_unit(bus, unit))
                 {
                     /*
                      * Add unit to the bus.
                      * At this point it becomes visible to OpenDevice().
                      */
-                    bus->ab_Units[iter] = unitObj;
+                    D(bug("[ATA**] %s:     setup done\n", __func__);)
 
+                    bus->ab_Units[iter] = unitObj;
                     if (unit->au_XferModes & AF_XFER_PACKET)
                     {
+                        struct ata_Controller *ataNode = NULL;
+
+                        D(bug("[ATA**] %s: registering unit packet volume\n", __func__);)
+
                         ata_RegisterVolume(0, 0, unit);
 
-                        /* For ATAPI device we also submit media presence detection request */
-                        unit->DaemonReq = (struct IOStdReq *)CreateIORequest(ATABase->DaemonPort, sizeof(struct IOStdReq));
-                        if (unit->DaemonReq)
+                        OOP_GetAttr(bus->ab_Object, aHidd_ATABus_Controller, (IPTR *)&ataNode);
+                        if (ataNode)
                         {
-                            /*
-                             * We don't want to keep stalled open count of 1, so we
-                             * don't call OpenDevice() here. Instead we fill in the needed
-                             * fields manually.
-                             */
-                            unit->DaemonReq->io_Device = &ATABase->ata_Device;
-                            unit->DaemonReq->io_Unit   = &unit->au_Unit;
-                            unit->DaemonReq->io_Command = HD_SCSICMD+1;
 
-                            ObtainSemaphore(&ATABase->DaemonSem);
-                            AddTail((struct List *)&ATABase->Daemon_ios,
-                                    &unit->DaemonReq->io_Message.mn_Node);
-                            ReleaseSemaphore(&ATABase->DaemonSem);
+                            D(bug("[ATA**] %s: controller data @ 0x%pn", __func__, ataNode);)
+
+                            /* For ATAPI device we also submit media presence detection request */
+                            unit->DaemonReq = (struct IOStdReq *)CreateIORequest(ataNode->DaemonPort, sizeof(struct IOStdReq));
+                            if (unit->DaemonReq)
+                            {
+                                D(bug("[ATA**] %s: controller data @ 0x%pn", __func__, ataNode);)
+
+                                /*
+                                 * We don't want to keep stalled open count of 1, so we
+                                 * don't call OpenDevice() here. Instead we fill in the needed
+                                 * fields manually.
+                                 */
+                                unit->DaemonReq->io_Device = &ATABase->ata_Device;
+                                unit->DaemonReq->io_Unit   = &unit->au_Unit;
+                                unit->DaemonReq->io_Command = HD_SCSICMD+1;
+
+                                ObtainSemaphore(&ataNode->DaemonSem);
+                                AddTail((struct List *)&ataNode->Daemon_ios,
+                                        &unit->DaemonReq->io_Message.mn_Node);
+                                ReleaseSemaphore(&ataNode->DaemonSem);
+                            }
                         }
                     }
                     else
                     {
+                        D(bug("[ATA**] %s: registering unit volume\n", __func__);)
+
                         ata_RegisterVolume(0, unit->au_Cylinders - 1, unit);
                     }
+                    D(bug("[ATA**] %s: unit setup done\n", __func__);)
                 }
                 else
                 {
+                    DINIT(bug("[ATA**] %s: Disposing unit @ 0x%p (obj @ 0x%p)\n", __func__, unit, unitObj);)
                     /* Destroy unit that couldn't be initialised */
-                    OOP_DisposeObject((OOP_Object *)unit);
+                    OOP_DisposeObject(unitObj);
                     bus->ab_Dev[iter] = DEV_NONE;
                 }
             }
         }
     }
 
-    D(bug("[ATA--] Bus %u scan finished\n", bus->ab_BusNum));
+    D(bug("[ATA--] %s: Bus %u scan finished\n", __func__, bus->ab_BusNum);)
     ReleaseSemaphore(&ATABase->DetectionSem);
+
+    D(bug("[ATA--] %s: waiting for signals ...\n", __func__);)
 
     /* Wait forever and process messages */
     for (;;)

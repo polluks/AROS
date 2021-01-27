@@ -1,5 +1,5 @@
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc:
@@ -15,8 +15,6 @@
 #include <libraries/locale.h>
 #include <aros/asmcall.h>
 #include "locale_intern.h"
-
-#include <clib/alib_protos.h>
 
 #include <aros/debug.h>
 
@@ -615,11 +613,6 @@ APTR InternalFormatString(const struct Locale * locale,
     ULONG indexSize = 0;
     APTR retval;
     struct Locale *def_locale = NULL;
-#if defined(__arm__) || defined(__x86_64__) || defined(__powerpc__)
-    va_list nullarg = {};
-#else
-    va_list nullarg = 0;
-#endif
 
     if (locale == NULL)
     {
@@ -628,15 +621,21 @@ APTR InternalFormatString(const struct Locale * locale,
     }
 
     /* Generate the indexes for the provided datastream */
-    GetDataStreamFromFormat(fmtTemplate, nullarg, NULL, NULL, NULL, &indexSize);
+    localeDataStreamFromFormat(fmtTemplate, NULL, NULL, NULL, &indexSize);
     indices = alloca(indexSize);
-    GetDataStreamFromFormat(fmtTemplate, nullarg, NULL, NULL, indices, &indexSize);
+    localeDataStreamFromFormat(fmtTemplate, NULL, NULL, indices, &indexSize);
 
     retval = InternalFormatString(locale, fmtTemplate,
                                 dataStream, indices, putCharFunc);
 
     CloseLocale(def_locale);
-
+    // TODO: Fix InternalFormatString so the following isnt needed...
+    if ((indexSize == 0) && (retval != (APTR)dataStream))
+    {
+        bug("[locale] %s: fixup retval for fmt with 0 args (0x%p -> 0x%p)\n", __func__, retval, dataStream);
+        bug("[locale] %s: InternalFormatString returned wrong value - DEBUG!\n", __func__);
+        retval = (APTR)dataStream;
+    }
     return retval;
 
     AROS_LIBFUNC_EXIT

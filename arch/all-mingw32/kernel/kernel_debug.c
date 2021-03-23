@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2017, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/exec.h>
@@ -25,12 +24,12 @@ int krnPutC(int chr, struct KernelBase *KernelBase)
      * but KernelBase is always NULL.
      */
     if (KernelBase)
-	Forbid();
+        Forbid();
 
     r = HostIFace->KPutC(chr);
 
     if (KernelBase)
-	Permit();
+        Permit();
 
     return r;
 }

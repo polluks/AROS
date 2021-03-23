@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: Unix filedescriptor/socket IO
-    Lang: english
 */
 
 /* Unix includes */
@@ -91,7 +89,7 @@ struct uioPacket {
                 UNIX errno variable) will be written
 
     RESULT
-        A number of the opened packet descriptor or -1 for an error. 
+        A number of the opened packet descriptor or -1 for an error.
 
     NOTES
 

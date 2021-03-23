@@ -1,6 +1,5 @@
 /*
-    Copyright © 2017-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2017-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -20,18 +19,18 @@
     NAME */
 #include <stdio.h>
 
-	int getc_unlocked (
+        int getc_unlocked (
 
 /*  SYNOPSIS */
-	FILE * stream)
+        FILE * stream)
 
 /*  FUNCTION
 
     INPUTS
-	stream - Read from this stream
+        stream - Read from this stream
 
     RESULT
-	The character read or EOF on end of file or error.
+        The character read or EOF on end of file or error.
 
     NOTES
 
@@ -40,11 +39,11 @@
     BUGS
 
     SEE ALSO
-	getc(), fputc(), putc()
+        getc(), __posixc_fputc(), putc()
 
     INTERNALS
 
 ******************************************************************************/
 {
-    return getc(stream);
+    return fgetc(stream);
 }

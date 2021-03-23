@@ -1,6 +1,5 @@
 /*
     Copyright (C) 2015-2020, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <aros/debug.h>
@@ -52,7 +51,7 @@ static int FindFirstDigit(char *inString)
     {
         if ((inString[i] >= 0x30) && (inString[i] <= 0x39))
             return i;
-    }  
+    }
     return -1;
 };
 
@@ -132,7 +131,7 @@ APTR StorageHW__Hidd_Storage__AllocateID(OOP_Class *cl, OOP_Object *o, struct pH
             if (nodeValue >= freeValue)
             {
                 freeValue = nodeValue +1;
-            }      
+            }
         }
         D(bug("[Storage] %s: Free ID# %d\n", __func__, freeValue));
 
@@ -157,7 +156,7 @@ APTR StorageHW__Hidd_Storage__AllocateID(OOP_Class *cl, OOP_Object *o, struct pH
                 _IDNode->SIDN_Node.ln_Name[baseNameLength + count] = (char)(0x30 + (freeValue / 100));
                 freeValue = freeValue - ((freeValue / 100) * 100);
                 count ++;
-            } 
+            }
             if (freeValue >= 10)
             {
                 _IDNode->SIDN_Node.ln_Name[baseNameLength + count] = (char)(0x30 + (freeValue / 10));

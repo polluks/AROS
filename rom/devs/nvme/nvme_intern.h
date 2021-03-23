@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, The AROS Development Team.  All rights reserved.
+ * Copyright (C) 2020-2021, The AROS Development Team.  All rights reserved.
  */
 
 #ifndef NVME_INTERN_H
@@ -125,6 +125,8 @@ typedef struct {
     OOP_Object        	*dev_PCIDriverObject;
     ULONG              	dev_HostID;
 
+    UBYTE               dev_mdts;
+    
     int                 db_stride;
     struct nvme_registers volatile *dev_nvmeregbase;
     ULONG volatile      *dbs;
@@ -137,14 +139,18 @@ typedef struct {
 struct completionevent_handler
 {
     struct Task *ceh_Task;
-    ULONG ceh_SigSet;
-    ULONG ceh_Result;
-    UWORD ceh_Status;
+    APTR        ceh_Msg;
+    ULONG       ceh_SigSet;
+    ULONG       ceh_Result;
+    UWORD       ceh_Status;
+    UWORD       ceh_Reply;
 };
 
 typedef void (*_NVMEQUEUE_CE_HOOK)(struct nvme_queue *, struct nvme_completion *);
 struct nvme_queue {
     device_t dev;
+    struct Task *q_IOTask;
+    
 #if defined(__AROSEXEC_SMP__)
     spinlock_t q_lock;
 #endif
@@ -178,7 +184,6 @@ struct nvme_Unit;
 struct nvme_Bus
 {
     struct NVMEBase     *ab_Base;   /* device self */
-
     device_t            ab_Dev;
 
     UWORD               ab_UnitCnt;
@@ -203,9 +208,13 @@ struct nvme_Unit
 
     ULONG               au_SecShift;
     UQUAD               au_SecCnt;
+
     UQUAD               au_Low;
     UQUAD               au_High;
 
+    ULONG               nu_Heads;
+    ULONG               nu_Cyl;
+    
     UBYTE               au_Model[41];
     UBYTE               au_FirmwareRev[9];
     UBYTE               au_SerialNumber[21];

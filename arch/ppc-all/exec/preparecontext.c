@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2011, The AROS Development Team. All rights reserved.
 
     Desc: PrepareContext() - Prepare a task context for dispatch, PowerPC version
-    Lang: english
 */
 
 #include <exec/execbase.h>
@@ -65,7 +63,7 @@ BOOL PrepareContext(struct Task *task, APTR entryPoint, APTR fallBack,
         if (tagList) tagList++;
     }
 
-    /* Next we set up return address */    
+    /* Next we set up return address */
     ctx->lr = (ULONG)fallBack;
 
     /* Then set up the frame to be used by Dispatch() */

@@ -1,6 +1,5 @@
 /*
-    Copyright © 2009-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2009-2020, The AROS Development Team. All rights reserved.
 */
 #include <dos/stdio.h>
 #include <exec/alerts.h>
@@ -66,7 +65,7 @@
 /*****************************************************************************
 
     NAME */
-	void __stdc_program_end(
+        void __stdc_program_end(
 
 /*  SYNOPSIS */
         void)
@@ -116,7 +115,7 @@
 /*****************************************************************************
 
     NAME */
-	int *__stdc_set_errorptr(
+        int *__stdc_set_errorptr(
 
 /*  SYNOPSIS */
         int *errorptr)
@@ -155,7 +154,7 @@
 /*****************************************************************************
 
     NAME */
-	int *__stdc_get_errorptr(
+        int *__stdc_get_errorptr(
 
 /*  SYNOPSIS */
         void)
@@ -190,7 +189,7 @@
 /*****************************************************************************
 
     NAME */
-	 void __stdc_set_exitjmp(
+         void __stdc_set_exitjmp(
 
 /*  SYNOPSIS */
         jmp_buf exitjmp,
@@ -228,7 +227,7 @@
 /*****************************************************************************
 
     NAME */
-	void __stdc_jmp2exit(
+        void __stdc_jmp2exit(
 
 /*  SYNOPSIS */
         int normal,

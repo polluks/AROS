@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: Linux fbdev Gfx Hidd for AROS.
-    Lang: English.
 */
 
 #define DEBUG 1
@@ -351,7 +349,7 @@ BOOL LinuxFBGfx__Hidd_Gfx__SetGamma(OOP_Class *cl, OOP_Object *o, struct pHidd_G
         UBYTE bi = data->b_step - 1;
 
         D(bug("[LinuxFB]  N  R  G  B gamma tables:\n"));
-	for (i = 0; i < data->scale_size; i++)
+        for (i = 0; i < data->scale_size; i++)
         {
             col.start = i;
 
@@ -373,7 +371,7 @@ BOOL LinuxFBGfx__Hidd_Gfx__SetGamma(OOP_Class *cl, OOP_Object *o, struct pHidd_G
             bi += data->b_step;
 
             Hidd_UnixIO_IOControlFile(fsd->unixio, data->fbdevinfo.fbdev, FBIOPUTCMAP, &col, NULL);
-	}
+        }
         return TRUE;
     }
 
@@ -447,7 +445,7 @@ static void print_bitfield(const char *color, struct fb_bitfield *bf)
 #endif
 
 static BOOL get_pixfmt(struct TagItem *pftags, struct fb_fix_screeninfo *fsi, struct fb_var_screeninfo *vsi)
-{   
+{
     BOOL success = TRUE;
 
     pftags[9 ].ti_Data = vsi->bits_per_pixel;            /* Depth        */
@@ -486,7 +484,7 @@ static BOOL get_pixfmt(struct TagItem *pftags, struct fb_fix_screeninfo *fsi, st
         pftags[14].ti_Data = 0xFF;                /* LUT mask  */
         break;
     
-     case FB_VISUAL_STATIC_PSEUDOCOLOR:        
+     case FB_VISUAL_STATIC_PSEUDOCOLOR:
         pftags[4 ].ti_Data = bitfield2mask(&vsi->red);    /* Masks: R, G, B, A */
         pftags[5 ].ti_Data = bitfield2mask(&vsi->green);
         pftags[6 ].ti_Data = bitfield2mask(&vsi->blue);
@@ -526,6 +524,6 @@ static BOOL get_pixfmt(struct TagItem *pftags, struct fb_fix_screeninfo *fsi, st
         break;
     }
 
-    return success;    
+    return success;
 }
 

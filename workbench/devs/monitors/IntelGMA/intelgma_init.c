@@ -1,6 +1,5 @@
 /*
-    Copyright © 2010-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2017, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -223,7 +222,7 @@ AROS_UFH3(void, Enumerator,
         }
 
         MGCC = HIDD_PCIDevice_ReadConfigWord(pciDevice, G45_MGCC);
-        D(bug("[GMA] MGCC=%04x, BSM=%08x, MSAC=%08x\n", MGCC, 
+        D(bug("[GMA] MGCC=%04x, BSM=%08x, MSAC=%08x\n", MGCC,
               HIDD_PCIDevice_ReadConfigLong(pciDevice, G45_BSM),
               HIDD_PCIDevice_ReadConfigByte(pciDevice, G45_MSAC)));
 
@@ -400,7 +399,7 @@ AROS_UFH3(void, Enumerator,
         {
             bug("[GMA] lvds Enabled\n");
             sd->pipe = PIPE_B;
-            GetSync(sd,&sd->lvds_fixed,PIPE_B); 
+            GetSync(sd,&sd->lvds_fixed,PIPE_B);
         }
         else
         {

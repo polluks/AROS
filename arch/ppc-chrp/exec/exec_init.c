@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #define DEBUG 1
@@ -366,8 +365,8 @@ void exec_main(struct TagItem *msg, void *entry)
         {
             t->tc_UnionETask.tc_ETask = AllocVec
             (
-        	sizeof(struct IntETask), 
-        	MEMF_ANY|MEMF_CLEAR
+                sizeof(struct IntETask),
+                MEMF_ANY|MEMF_CLEAR
             );
 
             if (!t->tc_UnionETask.tc_ETask)

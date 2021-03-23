@@ -1,6 +1,5 @@
 /*
     Copyright 2010-2019, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include "tls.h"
@@ -29,7 +28,7 @@ struct TaskLocalStorage
 
 struct TaskLocalStorage * CreateTLS()
 {
-    struct TaskLocalStorage * tls = 
+    struct TaskLocalStorage * tls =
         AllocVec(sizeof(struct TaskLocalStorage), MEMF_PUBLIC | MEMF_CLEAR);
 
     InitSemaphore(&tls->tls_WriteSemaphore);
@@ -48,7 +47,7 @@ VOID InsertIntoTLS(struct TaskLocalStorage * tls, APTR ptr)
        "at the same time" - do not alter this function to recurse */
     /* Assumption: only task A can add entry for task A */
 
-    /* Check if task's storage is already on the list */    
+    /* Check if task's storage is already on the list */
     while(tl)
     {
         if (tl->tl_Task == me)

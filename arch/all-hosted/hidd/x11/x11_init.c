@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: X11 hidd initialization code.
-    Lang: English.
 */
 
 #include "x11_debug.h"
@@ -156,7 +154,7 @@ int X11_Init(struct x11_staticdata *xsd)
         BootLoaderBase = OpenResource("bootloader.resource");
 
         /*
-         *    Argument parsing from bootloader.resource 
+         *    Argument parsing from bootloader.resource
          */
 
         if (BootLoaderBase)

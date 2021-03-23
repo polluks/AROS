@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -36,14 +35,14 @@ int main(void)
 
     while((SetSignal(0, 0) & SIGBREAKF_CTRL_C) == 0)
     {
-	a = VAL1; b = VAL1;
-	if (!(a == b)) arrgh(a,b,VAL1,VAL1);
-	a = VAL2; b = VAL1;
-	if (!(a > b)) arrgh(a,b,VAL2,VAL1);
-	if (!(b < a)) arrgh(a,b,VAL2,VAL1);
-	if (!(b != a)) arrgh(a,b,VAL2,VAL1);
-	if (a == b) arrgh(a,b,VAL2,VAL1);
-	if (a <= b) arrgh(a,b,VAL2,VAL1);
+        a = VAL1; b = VAL1;
+        if (!(a == b)) arrgh(a,b,VAL1,VAL1);
+        a = VAL2; b = VAL1;
+        if (!(a > b)) arrgh(a,b,VAL2,VAL1);
+        if (!(b < a)) arrgh(a,b,VAL2,VAL1);
+        if (!(b != a)) arrgh(a,b,VAL2,VAL1);
+        if (a == b) arrgh(a,b,VAL2,VAL1);
+        if (a <= b) arrgh(a,b,VAL2,VAL1);
     }
 
     return 0;

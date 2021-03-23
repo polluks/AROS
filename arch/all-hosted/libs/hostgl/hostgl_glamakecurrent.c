@@ -1,6 +1,5 @@
 /*
     Copyright 2011-2015, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <aros/debug.h>
@@ -53,7 +52,7 @@
             /* Attach */
             HostGL_SetCurrentContext(ctx);
             HostGL_UpdateGlobalGLXContext();
-        }            
+        }
     }
     else
     {

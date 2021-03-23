@@ -1,9 +1,7 @@
 /*
-    Copyright © 2004-2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2004-2011, The AROS Development Team. All rights reserved.
 
     Desc: PCI bus driver for ata.device
-    Lang: English
 */
 
 #define DEBUG 1
@@ -24,10 +22,10 @@
 
 #include "ata.h"
 
-typedef struct 
+typedef struct
 {
     struct ataBase *ATABase;
-    ULONG	    ata__buscount;
+    ULONG           ata__buscount;
     OOP_AttrBase    HiddPCIDeviceAttrBase;
     OOP_MethodID    HiddPCIDriverMethodBase;
 } EnumeratorArgs;
@@ -111,7 +109,7 @@ static BOOL ata460_CreateInterrupt(struct ata_Bus *bus)
     return TRUE;
 }
 
-static const struct ata_BusDriver ppc460_driver = 
+static const struct ata_BusDriver ppc460_driver =
 {
     ata460_out,
     ata460_in,
@@ -161,7 +159,7 @@ static int ata460_Scan(struct ataBase *base)
             if ((scr0 & 0xf) == 0x3) {
                 D(bug("[ATA] Enabling Sam460EX SATA in ATA PIO mode\n"));
                 ata_RegisterBus(0, 0x18, INTR_UIC3_SATA, 0,
-                                ARBF_EarlyInterrupt | ARBF_80Wire, &ppc460_driver, 
+                                ARBF_EarlyInterrupt | ARBF_80Wire, &ppc460_driver,
                                 (APTR)SATA0_CDR0, base);
             }
         }

@@ -1,9 +1,7 @@
 /*
     Copyright  1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
 
     Desc: Disk-resident part of X11 display driver
-    Lang: english
 */
 
 #include <aros/debug.h>
@@ -102,7 +100,7 @@ static ULONG LoadKeyCode2RawKeyTable(STRPTR filename)
 
     if ((fh = Open(filename, MODE_OLDFILE)))
     {
-        UBYTE	   	        keycode2rawkey[256];
+        UBYTE                   keycode2rawkey[256];
 
         D(bug("[X11:DiskStart] %s: X key table file handle: %p\n", __func__, fh));
         D(bug("[X11:DiskStart] %s: X key table name       : %s\n", __func__, filename));
@@ -208,14 +206,14 @@ int main(void)
 /*
  * TODO: In order for this to work X11 driver needs to be fixed
  *       in the following way:
- *	 - display-specific and window-specific data should be moved from class static data
- *	   to driver instance data.
- *	 - event task should be able to handle several display windows
- *	 - display windows should close when not needed (empty).
- *	 - invent what to do with host clipboard handling. The idea is nice but:
- *	   a) It should be somehow integrated with clipboard.device
+ *       - display-specific and window-specific data should be moved from class static data
+ *         to driver instance data.
+ *       - event task should be able to handle several display windows
+ *       - display windows should close when not needed (empty).
+ *       - invent what to do with host clipboard handling. The idea is nice but:
+ *         a) It should be somehow integrated with clipboard.device
  *         b) Several X11 displays might mean several clipboards (if they run on different
- *	      X servers).
+ *            X servers).
  */
 #if 0
     if (old_displays)

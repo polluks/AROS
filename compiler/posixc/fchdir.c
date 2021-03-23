@@ -1,6 +1,5 @@
 /*
-    Copyright © 2008-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2008-2013, The AROS Development Team. All rights reserved.
 */
 
 #include "__posixc_intbase.h"
@@ -60,7 +59,7 @@
     if (!(fdc->fcb->privflags & _FCB_ISDIR))
     {
         errno = ENOTDIR;
-        goto error; 
+        goto error;
     }
 
     if ( __get_default_file(fd, (long*) &handle) != 0 )
@@ -86,7 +85,7 @@
     {
         PosixCBase->cd_changed = TRUE;
         PosixCBase->cd_lock    = oldlock;
-    }       
+    }
     return 0;
 
 error:

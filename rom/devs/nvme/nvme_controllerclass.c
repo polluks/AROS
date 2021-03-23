@@ -1,6 +1,5 @@
 /*
-    Copyright (C) 2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2020-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -71,13 +70,17 @@ OOP_Object *NVME__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg)
         if ((data->ac_dev = dev) != NULL)
         {
             dev->dev_Controller = nvmeController;
-
             OOP_GetAttr(dev->dev_Object, aHidd_PCIDevice_Base0, (IPTR *)&dev->dev_nvmeregbase);
 
             D(bug ("[NVME:Controller] Root__New:     NVME RegBase @ 0x%p\n", dev->dev_nvmeregbase);)
             dev->dbs = ((void volatile *)dev->dev_nvmeregbase) + 4096;
 
             dev->dev_Queues = AllocMem(sizeof(APTR) * (KrnGetCPUCount() + 1), MEMF_CLEAR);
+            if (!dev->dev_Queues)
+            {
+                // TODO: dispose the controller object
+                return NULL;
+            }
 
             D(bug ("[NVME:Controller] Root__New:     dbs @ 0x%p\n", dev->dbs);)
             dev->dev_Queues[0] = nvme_alloc_queue(dev, 0, 64, 0);
@@ -89,8 +92,23 @@ OOP_Object *NVME__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg)
                 UQUAD cap;
                 ULONG aqa;
 
-                dev->dev_Queues[0]->cehooks = AllocMem(sizeof(_NVMEQUEUE_CE_HOOK) * 16, MEMF_CLEAR);
-                dev->dev_Queues[0]->cehandlers = AllocMem(sizeof(struct completionevent_handler *) * 16, MEMF_CLEAR);
+                dev->dev_Queues[0]->cehooks = AllocMem(sizeof(_NVMEQUEUE_CE_HOOK) * 64, MEMF_CLEAR);
+                if (!dev->dev_Queues[0]->cehooks)
+                {
+                    FreeMem(dev->dev_Queues, sizeof(APTR) * (KrnGetCPUCount() + 1));
+                    dev->dev_Queues = NULL;
+                    // TODO: dispose the controller object
+                    return NULL;
+                }
+                dev->dev_Queues[0]->cehandlers = AllocMem(sizeof(struct completionevent_handler *) * 64, MEMF_CLEAR);
+                if (!dev->dev_Queues[0]->cehandlers)
+                {
+                    FreeMem(dev->dev_Queues[0]->cehooks, sizeof(_NVMEQUEUE_CE_HOOK) * 64);
+                    FreeMem(dev->dev_Queues, sizeof(APTR) * (KrnGetCPUCount() + 1));
+                    dev->dev_Queues = NULL;
+                    // TODO: dispose the controller object
+                    return NULL;
+                }
 
                 aqa = dev->dev_Queues[0]->q_depth - 1;
                 aqa |= aqa << 16;
@@ -111,7 +129,7 @@ OOP_Object *NVME__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg)
 
                 /* parse capabilities ... */
                 cap = dev->dev_nvmeregbase->cap;
-#if (0)                
+#if (0)
                 timeout = ((NVME_CAP_TIMEOUT(cap) + 1) * HZ / 2) + jiffies;
 #endif
                 dev->db_stride = NVME_CAP_STRIDE(cap);
@@ -154,6 +172,9 @@ OOP_Object *NVME__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg)
                         D(bug ("[NVME:Controller] Root__New:     F/W '%s'\n", ctrl->fr);)
                         D(bug ("[NVME:Controller] Root__New:        %u namespace(s)\n", ctrl->nn);)
 
+                        D(bug ("[NVME:Controller] Root__New: mdts = %u\n", ctrl->mdts);)
+                        dev->dev_mdts = ctrl->mdts;
+
                         struct TagItem attrs[] =
                         {
                                 {aHidd_Name,                (IPTR)"nvme.device"                             },
@@ -175,25 +196,35 @@ OOP_Object *NVME__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg)
                     else
                     {
                         bug("[NVME:Controller] Root__New: ERROR - failed to query controller identity!\n");
+                        data = NULL;
                     }
                     HIDD_PCIDriver_FreePCIMem(dev->dev_PCIDriverObject, buffer);
                 }
                 else
                 {
                     D(bug ("[NVME:Controller] Root__New: ERROR - failed to create DMA buffer!\n");)
+                    FreeMem(dev->dev_Queues[0]->cehooks, sizeof(_NVMEQUEUE_CE_HOOK) * 64);
+                    FreeMem(dev->dev_Queues, sizeof(APTR) * (KrnGetCPUCount() + 1));
+                    dev->dev_Queues = NULL;
+                    // TODO: dispose the controller object
+                    data = NULL;
                 }
             }
             else
             {
                 bug("[NVME:Controller] Root__New: ERROR - failed to create Admin Queue!\n");
+                FreeMem(dev->dev_Queues, sizeof(APTR) * (KrnGetCPUCount() + 1));
+                dev->dev_Queues = NULL;
+                data = NULL;
             }
         }
         else
         {
             bug("[NVME:Controller] Root__New: ERROR - device data missing!\n");
+            data = NULL;
         }
-
-        AddTail(&NVMEBase->nvme_Controllers, &data->ac_Node);
+        if (data)
+            AddTail(&NVMEBase->nvme_Controllers, &data->ac_Node);
     }
     D(bug ("[NVME:Controller] Root__New: returning 0x%p\n", nvmeController);)
     return nvmeController;

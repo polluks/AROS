@@ -1,6 +1,5 @@
 /*
-    Copyright © 2010-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -107,7 +106,7 @@ static ULONG AMDDeriveFamily(UBYTE basefamily, UBYTE extendedfamily)
 
     D(bug("[processor.x86] :%s()\n", __func__));
 
-    if (basefamily == 0x0f) 
+    if (basefamily == 0x0f)
         family = basefamily + extendedfamily;
     else
         family = basefamily;
@@ -165,12 +164,12 @@ static void ReadFamilyModelStepping(struct X86ProcessorInformation * info)
     info->Family = CPUFAMILY_UNKNOWN;
     switch(info->Vendor)
     {
-    case(VENDOR_AMD): 
-        info->Family = AMDDeriveFamily(basefamily, extendedfamily); 
+    case(VENDOR_AMD):
+        info->Family = AMDDeriveFamily(basefamily, extendedfamily);
         info->Model = basemodel | (basefamily < 0x0f ? 0 : (extendedmodel << 4));
         (void)stepping; /* FIXME: Why is this unused? */
         break;
-    case(VENDOR_INTEL): 
+    case(VENDOR_INTEL):
         info->Family = IntelDeriveFamily(basefamily, extendedfamily);
         info->Model = basemodel | (extendedmodel << 4);
         (void)stepping; /* FIXME: Why is this unused? */
@@ -456,7 +455,7 @@ static void ReadMSRSupportInformation(struct X86ProcessorInformation * info)
         return;
 
     if (info->CPUIDHighestStandardFunction > 0x00000005)
-    {   
+    {
         /* Reading Power Management Information */
         cpuid(0x00000006);
         if (ecx & 0x01)

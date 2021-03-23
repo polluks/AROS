@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2016, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2016, The AROS Development Team. All rights reserved.
 
     Desc: Can this disk boot on your architecture?
-    Lang: english
 */
 
 #include <aros/debug.h>
@@ -104,7 +102,7 @@ BOOL __dos_IsBootable(struct DosLibrary * DOSBase, BPTR lock)
     {
         UnLoadSeg(seg);
 
-        D(bug("[__dos_IsBootable] Success!\n"));        
+        D(bug("[__dos_IsBootable] Success!\n"));
         return TRUE;
     }
 

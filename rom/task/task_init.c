@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -35,7 +34,7 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
     if (!KernelBase)
     {
         /* we should probably halt the system ..*/
-    	return FALSE;
+        return FALSE;
     }
 
 #if defined(__AROSEXEC_SMP__)

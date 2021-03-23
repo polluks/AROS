@@ -1,9 +1,7 @@
 /*
-    Copyright © 2010-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2020, The AROS Development Team. All rights reserved.
 
     Desc: GetCPUInfo() - Provides information about installed CPUs
-    Lang: english
 */
 
 #include <aros/debug.h>
@@ -40,7 +38,7 @@ AROS_LH1(void, GetCPUInfo,
     first available processor */
     selectedprocessor = (ULONG)GetTagData(GCIT_SelectedProcessor, 0, tagList);
 
-    /* If selectedprocessor not in line with number of processors, report on 
+    /* If selectedprocessor not in line with number of processors, report on
     first available processor */
     if (selectedprocessor >= ProcessorBase->cpucount)
         selectedprocessor = 0;
@@ -72,7 +70,7 @@ AROS_LH1(void, GetCPUInfo,
             *((ULONG *)passedTag->ti_Data) = processor->VectorUnit;
             break;
         case(GCIT_L1CacheSize):
-            *((ULONG *)passedTag->ti_Data) = 
+            *((ULONG *)passedTag->ti_Data) =
                 (processor->L1DataCacheSize + processor->L1InstructionCacheSize);
             break;
         case(GCIT_L1DataCacheSize):
@@ -100,7 +98,7 @@ AROS_LH1(void, GetCPUInfo,
             *((UQUAD *)passedTag->ti_Data) = GetCurrentProcessorFrequency(ProcessorBase, processor);
             break;
         case(GCIT_ProcessorLoad):
-#if defined(__AROSEXEC_SMP__)            
+#if defined(__AROSEXEC_SMP__)
             *((ULONG *)passedTag->ti_Data) = KrnGetSystemAttr(KATTR_CPULoad + selectedprocessor);
 #else
             *((ULONG *)passedTag->ti_Data) = 0; /* TODO: IMPLEMENT */
@@ -153,7 +151,7 @@ D(bug("[processor.x86] :%s()\n", __func__));
     case(GCIT_SupportsACPI):
         if (info->Vendor == VENDOR_INTEL)
             *((BOOL *)tag->ti_Data) = (BOOL)((info->Features1 & FEATF_ACPI) >> FEATB_ACPI);
-        else 
+        else
             *((BOOL *)tag->ti_Data) = FALSE; /* TODO: IMPLEMENT FOR AMD */
         break;
     case(GCIT_SupportsFXSR):
@@ -208,7 +206,7 @@ D(bug("[processor.x86] :%s()\n", __func__));
         };
         break;
 
-    default: 
+    default:
         *((BOOL *)tag->ti_Data) = FALSE; break;
     }
 }

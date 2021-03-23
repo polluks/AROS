@@ -1,13 +1,12 @@
 /*
     Copyright 2009-2013, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <proto/timer.h>
 
-/* 
+/*
     The purpose of this file is to provide implementation for C functions part
     of arosnixc.library in code where one does not want to use this library.
 */

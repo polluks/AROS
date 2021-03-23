@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     C99 function system().
 */
@@ -16,10 +15,10 @@
     NAME */
 #include <stdlib.h>
 
-	int system (
+        int system (
 
 /*  SYNOPSIS */
-	const char *string)
+        const char *string)
 
 /*  FUNCTION
         Execute a command string. If string is NULL then 1 will be returned.

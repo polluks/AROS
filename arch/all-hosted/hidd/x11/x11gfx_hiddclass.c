@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: X11 gfx HIDD for AROS.
-    Lang: English.
 */
 
 #include "x11_debug.h"
@@ -99,8 +97,8 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { aHidd_PixFmt_BitsPerPixel , 0        }, /* 11 */
         { aHidd_PixFmt_StdPixFmt    , 0        }, /* 12 */
         { aHidd_PixFmt_CLUTShift    , 0        }, /* 13 */
-        { aHidd_PixFmt_CLUTMask     , 0        }, /* 14 */ 
-        { aHidd_PixFmt_BitMapType   , 0        }, /* 15 */   
+        { aHidd_PixFmt_CLUTMask     , 0        }, /* 14 */
+        { aHidd_PixFmt_BitMapType   , 0        }, /* 15 */
         { TAG_DONE                  , 0UL   }
     };
 
@@ -124,7 +122,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_320_240[] = 
+    struct TagItem tags_320_240[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(320,240)    },
         { aHidd_Sync_HTotal     , fakeHTOTAL(320,240)   },
@@ -134,7 +132,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_512_384[] = 
+    struct TagItem tags_512_384[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(512,384)    },
         { aHidd_Sync_HTotal     , fakeHTOTAL(512,384)   },
@@ -144,7 +142,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_640_480[] = 
+    struct TagItem tags_640_480[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(640,480)    },
         { aHidd_Sync_HTotal     , fakeHTOTAL(640,480)   },
@@ -154,7 +152,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_800_600[] = 
+    struct TagItem tags_800_600[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(800,600)    },
         { aHidd_Sync_HTotal     , fakeHTOTAL(800,600)   },
@@ -164,7 +162,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_1024_768[] = 
+    struct TagItem tags_1024_768[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(1024,768)   },
         { aHidd_Sync_HTotal     , fakeHTOTAL(1024,768)  },
@@ -174,7 +172,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
     
-    struct TagItem tags_1152_864[] = 
+    struct TagItem tags_1152_864[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(1152,864)   },
         { aHidd_Sync_HTotal     , fakeHTOTAL(1152,864)  },
@@ -194,7 +192,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_1280_960[] = 
+    struct TagItem tags_1280_960[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(1280,960)   },
         { aHidd_Sync_HTotal     , fakeHTOTAL(1280,960)  },
@@ -214,7 +212,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
 
-    struct TagItem tags_1400_1050[] = 
+    struct TagItem tags_1400_1050[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(1400,1050)  },
         { aHidd_Sync_HTotal     , fakeHTOTAL(1400,1050) },
@@ -224,7 +222,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         { TAG_DONE              , 0UL                   }
     };
     
-    struct TagItem tags_1600_1200[] = 
+    struct TagItem tags_1600_1200[] =
     {
         { aHidd_Sync_PixelClock , fakeCLOCK(1600,1200)  },
         { aHidd_Sync_HTotal     , fakeHTOTAL(1600,1200) },
@@ -320,7 +318,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
     /* Get supported X11 resolution from RandR resources */
     
     disp = XCALL(XOpenDisplay, NULL);
-    screen = XCALL(XDefaultScreen, disp);    
+    screen = XCALL(XDefaultScreen, disp);
 //  rootwin = XCALL(XRootWindow, disp, screen);
 
     if (!(XSD(cl)->options & OPTION_FORCESTDMODES))
@@ -446,7 +444,7 @@ OOP_Object *X11Cl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
     if (XSD(cl)->vi->class == TrueColor)
     {
         pftags[8].ti_Data = vHidd_ColorModel_TrueColor;
-    }    
+    }
     else if (XSD(cl)->vi->class == PseudoColor)
     {
         pftags[8].ti_Data = vHidd_ColorModel_Palette;

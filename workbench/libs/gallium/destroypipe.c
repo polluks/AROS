@@ -1,5 +1,5 @@
 /*
-    Copyright © 2010-2019, The AROS Development Team. All rights reserved.
+    Copyright (C) 2010-2019, The AROS Development Team. All rights reserved.
     $Id: createpipescreen.c 48224 2013-10-07 14:30:43Z neil $
 */
 
@@ -23,7 +23,7 @@
 
       AROS_LH1(void, DestroyPipe,
 
-/*  SYNOPSIS */ 
+/*  SYNOPSIS */
       AROS_LHA(PipeHandle_t, pipe, A0),
 
 /*  LOCATION */

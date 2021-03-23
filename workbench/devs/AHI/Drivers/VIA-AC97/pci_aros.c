@@ -1,6 +1,5 @@
 /*
-    Copyright © 2004-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2004-2013, The AROS Development Team. All rights reserved.
 */
 
 #define __OOP_NOATTRBASES__
@@ -104,8 +103,8 @@ APTR ahi_pci_find_device(ULONG vendorid, ULONG deviceid, APTR dev) {
 
     struct TagItem Reqs[] = {
 #if 0
-      { tHidd_PCI_Class   	, 0x04 	    }, /* Multimedia */
-      { tHidd_PCI_SubClass	, 0x01 	    }, /* Audio */
+      { tHidd_PCI_Class         , 0x04      }, /* Multimedia */
+      { tHidd_PCI_SubClass      , 0x01      }, /* Audio */
 #endif
         {tHidd_PCI_VendorID, vendorid},
         {tHidd_PCI_ProductID, deviceid},

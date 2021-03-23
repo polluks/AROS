@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -53,7 +52,7 @@ static int init_hiddclass(LIBBASETYPEPTR lh)
     struct TagItem hwTags[] =
     {
        { TAG_IGNORE,    0       },
-       { TAG_DONE,      0       } 
+       { TAG_DONE,      0       }
     };
     ULONG arg = 1;
     ULONG res;

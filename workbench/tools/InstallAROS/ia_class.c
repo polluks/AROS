@@ -1,6 +1,5 @@
 /*
-    Copyright © 2018-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2018-2021, The AROS Development Team. All rights reserved.
 */
 
 #define INTUITION_NO_INLINE_STDARG
@@ -499,7 +498,7 @@ IPTR Install__OM_DISPOSE(Class * CLASS, Object * self, Msg message)
     if (data->instc_IOd.iio_Buffer)
         FreeMem(data->instc_IOd.iio_Buffer, data->instc_IOd.iio_BuffSize);
 
-    return DoSuperMethodA(CLASS, self, (Msg) message);    
+    return DoSuperMethodA(CLASS, self, (Msg) message);
 }
 
 IPTR Install__OM_SET(Class * CLASS, Object * self, struct opSet * message)
@@ -637,7 +636,7 @@ AROS_UFH3S(BOOL, Install__StorageCntrllrEnum,
     HIDD_StorageController_EnumBuses(ctrllrObj, &busenum_hook, retval);
 
     /* Continue enumeration */
-    return FALSE; 
+    return FALSE;
 
     AROS_USERFUNC_EXIT
 }
@@ -1017,7 +1016,7 @@ IPTR Install__MUIM_IC_NextStep(Class * CLASS, Object * self, Msg message)
                 {
                     if (data->instc_default_usb)
                         volname = USB_SYS_VOL_NAME;
-                    else 
+                    else
                         volname = WORK_VOL_NAME;
                 }
                 else

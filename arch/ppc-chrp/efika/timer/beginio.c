@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
 
     Desc: BeginIO - Start up a timer.device request.
-    Lang: english
 */
 
 #include "lowlevel.h"
@@ -96,9 +94,9 @@ AROS_LH1(void, BeginIO,
 #endif
 
         case TR_GETSYSTIME:
-	    Disable();
+            Disable();
             EClockUpdate(TimerBase);
-	    Enable();
+            Enable();
             GetSysTime(&timereq->tr_time);
 
             if(!(timereq->tr_node.io_Flags & IOF_QUICK))

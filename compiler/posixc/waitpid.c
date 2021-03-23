@@ -1,6 +1,5 @@
 /*
-    Copyright © 2004-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2004-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -125,7 +124,7 @@
         return -1;
     }
     
-    /* not very pretty, perhaps we need a function for counting dead 
+    /* not very pretty, perhaps we need a function for counting dead
        children? */
     ListLength(&et->et_TaskMsgPort.mp_MsgList, exchildno);
     if ((options & WNOHANG) && (

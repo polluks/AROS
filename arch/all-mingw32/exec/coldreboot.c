@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2010, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2010, The AROS Development Team. All rights reserved.
 
     Desc: ColdReboot() - Reboot the computer, Windows-hosted implementation.
-    Lang: english
 */
 
 #include <aros/debug.h>
@@ -11,7 +9,7 @@
 #include "exec_intern.h"
 
 AROS_LH0(void, ColdReboot,
-	 struct ExecBase *, SysBase, 121, Exec)
+         struct ExecBase *, SysBase, 121, Exec)
 {
     AROS_LIBFUNC_INIT
 

@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2011, The AROS Development Team. All rights reserved.
 
     Desc: Turkish Q Standard PC105 Keymap
-    Lang: English
 */
 
 #include "common.h"
@@ -263,7 +261,7 @@ STATIC CONST IPTR lokeymap[] =
 STATIC CONST IPTR hikeymap[] =
 {
     BYTES(0xA0, 0xA0, ' ', ' '),/* 40 SPACE */
-    BYTES(8, 8, 8, 8),		/* 41 BACKSPACE */
+    BYTES(8, 8, 8, 8),          /* 41 BACKSPACE */
     STRING(tab_descr),        /* 42 TAB */
     BYTES(13, 13, 13, 13),    /* 43 ENTER */
     BYTES(0, 0, 10, 13),    /* 44 RETURN */

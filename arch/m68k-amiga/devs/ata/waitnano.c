@@ -1,6 +1,5 @@
 /*
-    Copyright © 2013, The AROS Development Team. All rights reserved
-    $Id$
+    Copyright (C) 2013, The AROS Development Team. All rights reserved
 */
 
 #include <exec/types.h>
@@ -20,7 +19,7 @@ BOOL ata_Calibrate(struct IORequest* tmr, struct ataBase *base)
 static void busywait(UWORD cnt)
 {
     asm volatile (
-    	"move.w %0,%%d0\n"
+        "move.w %0,%%d0\n"
         "lea 0xbfe001,%%a0\n"
         "0:\n"
         "tst.b (%%a0)\n"
@@ -43,7 +42,7 @@ void ata_WaitNano(ULONG ns, struct ataBase *base)
     */
     ns /= 1024;
     if (!(SysBase->AttnFlags & AFF_68020))
-    	ns /= 2;
+        ns /= 2;
     while (ns >= 65536 * 4) {
         busywait(65535);
         ns -= 65536 * 4;

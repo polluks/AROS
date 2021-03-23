@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 /* Because fload is defined to "int" later below,
@@ -57,9 +56,9 @@ void domul(realfloat a, realfloat b)
     
     puts("");
     printf("mathffp  : %f x %f = %f (hex %x)\n",
-	   converttofloat(x.i), converttofloat(y.i), converttofloat(res.i), res.i);
-    printf("realfloat: %f x %f = %f\n",   
-	   a, b, a * b);
+           converttofloat(x.i), converttofloat(y.i), converttofloat(res.i), res.i);
+    printf("realfloat: %f x %f = %f\n",
+           a, b, a * b);
     
 }
 

@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2010, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2010, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: English
 */
 
 #include <sys/errno.h>
@@ -59,27 +57,27 @@
 
     if (wsentry)
     {
-	arosentry = CopyProtoEntry(wsentry, taskBase->pool);
-	D(bug("[getprorobyname] AROS protoent: 0x%p\n", arosentry));
-	if (!arosentry)
-	    err = ENOMEM;
+        arosentry = CopyProtoEntry(wsentry, taskBase->pool);
+        D(bug("[getprorobyname] AROS protoent: 0x%p\n", arosentry));
+        if (!arosentry)
+            err = ENOMEM;
     }
     else
     {
-	err = WSAGetLastError() - WSABASEERR;
-	D(bug("[getprotobyname] WinSock error %u\n", err));
+        err = WSAGetLastError() - WSABASEERR;
+        D(bug("[getprotobyname] WinSock error %u\n", err));
     }
 
     Permit();
 
     if (arosentry)
     {
-	if (taskBase->pe)
-	    FreeProtoEntry(taskBase->pe, taskBase->pool);
-	taskBase->pe = arosentry;
+        if (taskBase->pe)
+            FreeProtoEntry(taskBase->pe, taskBase->pool);
+        taskBase->pe = arosentry;
     }
     else
-	SetError(err, taskBase);
+        SetError(err, taskBase);
 
     return arosentry;
 

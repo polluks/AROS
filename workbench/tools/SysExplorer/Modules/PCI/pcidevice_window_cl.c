@@ -1,6 +1,5 @@
 /*
     Copyright (C) 2020, The AROS Development Team.
-    $Id$
 */
 
 #define MUIMASTER_YES_INLINE_STDARG
@@ -44,7 +43,7 @@ static Object *PCIDevWindow__OM_NEW(Class *cl, Object *self, struct opSet *msg)
     };
 
     IPTR name;
-    OOP_Object *display_obj = 
+    OOP_Object *display_obj =
         (OOP_Object *)GetTagData(MUIA_PropertyWin_Object, 0, msg->ops_AttrList);
 
 //    OOP_GetAttr(display_obj, aHidd_Name, &name);

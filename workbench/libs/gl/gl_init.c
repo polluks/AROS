@@ -1,6 +1,5 @@
 /*
     Copyright 2015-2016, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 //#define DEBUG 1
@@ -174,7 +173,7 @@ void SetupGLVarNotification(struct Library *base)
             {
                 D(bug("[GL] %s: FS Notification Proc @ 0x%p for '%s'\n", __func__, enProc, GLB(base)->glb_Notify.nr_Name));
 
-                GLB(base)->glb_Notify.nr_stuff.nr_Msg.nr_Port	= &enProc->pr_MsgPort;
+                GLB(base)->glb_Notify.nr_stuff.nr_Msg.nr_Port   = &enProc->pr_MsgPort;
             }
             D(bug("[GL] %s: MsgPort @ 0x%p\n", __func__,GLB(base)->glb_Notify.nr_stuff.nr_Msg.nr_Port));
         }

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -31,8 +30,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 2;
-	sprintf(buffer, "%a", xd);
+        xd = 2;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1p+1"))
     {
         bug("2 in hex: %s\n", buffer);
@@ -40,8 +39,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 256;
-	sprintf(buffer, "%a", xd);
+        xd = 256;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1p+8"))
     {
         bug("2^8 in hex: %s\n", buffer);
@@ -49,8 +48,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0.015625; //= 2^-6 
- 	sprintf(buffer, "%a", xd);
+        xd = 0.015625; //= 2^-6
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1p-6"))
     {
         bug("2^-6 in hex: %s\n", buffer);
@@ -58,8 +57,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0.857421875;
-	sprintf(buffer, "%a", xd);
+        xd = 0.857421875;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1.b7p-1"))
     {
         bug("0.857421875 in hex: %s\n", buffer);
@@ -67,8 +66,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0x1p-1074; //Smallest double (unnormalized)
-	sprintf(buffer, "%a", xd);
+        xd = 0x1p-1074; //Smallest double (unnormalized)
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x0.0000000000001p-1022"))
     {
         bug("0x1p-1074 in hex: %s\n", buffer);
@@ -76,8 +75,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 3.1415926;
-	sprintf(buffer, "%A", xd);
+        xd = 3.1415926;
+        sprintf(buffer, "%A", xd);
     if (strcmp(buffer, "0X1.921FB4D12D84AP+1"))
     {
         bug("3.1415926 in upper case hex: %s\n", buffer);
@@ -85,8 +84,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0.1;
-	sprintf(buffer, "%a", xd);
+        xd = 0.1;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1.999999999999ap-4"))
     {
         bug("0.1 in hex: %s\n", buffer);
@@ -94,8 +93,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0x3.3333333333334p-5;
-	sprintf(buffer, "%a", xd);
+        xd = 0x3.3333333333334p-5;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1.999999999999ap-4"))
     {
         bug("0x3.3333333333334p-5 in hex: %s\n", buffer);
@@ -103,8 +102,8 @@ int main(void)
         retval = RETURN_ERROR;
     }
 
-	xd = 0xcc.ccccccccccdp-11;
-	sprintf(buffer, "%a", xd);
+        xd = 0xcc.ccccccccccdp-11;
+        sprintf(buffer, "%a", xd);
     if (strcmp(buffer, "0x1.999999999999ap-4"))
     {
         bug("0xcc.ccccccccccdp-11 in hex: %s\n", buffer);

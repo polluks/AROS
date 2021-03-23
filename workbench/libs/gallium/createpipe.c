@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015-2019, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015-2019, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -23,7 +22,7 @@
 
       AROS_LH1(PipeHandle_t, CreatePipe,
 
-/*  SYNOPSIS */ 
+/*  SYNOPSIS */
       AROS_LHA(struct TagItem *, tags, A0),
 
 /*  LOCATION */
@@ -57,7 +56,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    struct TagItem galliumTags[] = 
+    struct TagItem galliumTags[] =
     {
         { aHidd_Gallium_InterfaceVersion,       0 },
         { TAG_DONE,                             0 }

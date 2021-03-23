@@ -1,7 +1,6 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    Copyright © 2001-2003, The MorphOS Development Team. All Rights Reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2001-2003, The MorphOS Development Team. All Rights Reserved.
 */
 
 /****************************************************************************************/
@@ -1321,7 +1320,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
         if (ie->ie_Qualifier & IEQUALIFIER_RELATIVEMOUSE) {
             //ULONG Thresh;
 
-            /* Add delta information lost in previous mousemove event. See below. */            
+            /* Add delta information lost in previous mousemove event. See below. */
             iihdata->DeltaMouseX = ie->ie_X + iihdata->DeltaMouseX_Correction;
             iihdata->DeltaMouseY = ie->ie_Y + iihdata->DeltaMouseY_Correction;
 
@@ -1567,7 +1566,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
             }
 #endif
             /* Do Mouse Bounding - mouse will be most restrictive of screen size or mouse bounds */
-            if (iihdata->MouseBoundsActiveFlag) {            
+            if (iihdata->MouseBoundsActiveFlag) {
                 if (ie->ie_X < iihdata->MouseBoundsLeft)
                     ie->ie_X = iihdata->MouseBoundsLeft;
                 else if (ie->ie_X > iihdata->MouseBoundsRight)
@@ -1587,7 +1586,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
             }
         }
         else if (GetPrivIBase(IntuitionBase)->ScreenModePrefs) /* !GetPrivIBase(IntuitionBase)->ActiveMonitor */
-        {       
+        {
             /*
              * If there's no active display, we take the prefs defined dimensions...
              */

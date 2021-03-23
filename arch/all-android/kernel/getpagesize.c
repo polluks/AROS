@@ -1,9 +1,7 @@
 /*
-    Copyright © 2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2011, The AROS Development Team. All rights reserved.
 
     Desc: Query Android host OS for memory page size
-    Lang: english
 */
 
 #include "hostinterface.h"
@@ -20,9 +18,9 @@ unsigned int krnGetPageSize(void *hostlib)
 
     if (!__page_size)
     {
-    	krnPanic(NULL, "Failed to obtain memory page size\n"
-    		       "%s", errstr);
-    	return 0;
+        krnPanic(NULL, "Failed to obtain memory page size\n"
+                       "%s", errstr);
+        return 0;
     }
 
     return *__page_size;

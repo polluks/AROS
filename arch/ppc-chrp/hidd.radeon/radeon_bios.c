@@ -1,9 +1,7 @@
 /*
-    Copyright © 2004-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2004-2017, The AROS Development Team. All rights reserved.
 
     Desc: ATI radeon driver. BIOS part.
-    Lang: English
 */
 
 /*
@@ -67,9 +65,9 @@ BOOL RADEONGetBIOSInfo(struct ati_staticdata *sd)
 
         if (key)
         {
-			void *rom_prop = OF_FindProperty(key, "rom");
-			if (rom_prop)
-				sd->Card.VBIOS = OF_GetPropValue(rom_prop);
+                        void *rom_prop = OF_FindProperty(key, "rom");
+                        if (rom_prop)
+                                sd->Card.VBIOS = OF_GetPropValue(rom_prop);
         }
         D(bug("[ATI] OF reported BIOS at %08x\n", sd->Card.VBIOS));
     }

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/libcall.h>
@@ -11,7 +10,7 @@
 #include <unistd.h>
 
 AROS_LH0(int, KrnMayGetChar,
-	 struct KernelBase *, KernelBase, 26, Kernel)
+         struct KernelBase *, KernelBase, 26, Kernel)
 {
     AROS_LIBFUNC_INIT
     

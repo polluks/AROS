@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 */
 
 #define DEBUG 0
@@ -52,7 +51,7 @@ static BOOL InitProcessor(struct SysMonData *smdata)
     
     if (ProcessorBase)
     {
-        struct TagItem tags [] = 
+        struct TagItem tags [] =
         {
             { GCIT_NumberOfProcessors, (IPTR)&processorcount },
             { 0, (IPTR)NULL }
@@ -103,7 +102,7 @@ VOID UpdateProcessorInformation(struct SysMonData * smdata)
         DateStamp(&ds);
         frequency = ((ds.ds_Tick * (i + 1)) % 100) * 10;
 #else
-        struct TagItem tags [] = 
+        struct TagItem tags [] =
         {
             { GCIT_SelectedProcessor, (IPTR)i },
             { GCIT_ProcessorSpeed, (IPTR)&frequency },

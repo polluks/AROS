@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2011, The AROS Development Team. All rights reserved.
 
     Desc: Display an alert in Android GUI if possible
-    Lang: english
 */
 
 #include <aros/atomic.h>
@@ -22,9 +20,9 @@
 #define D(x)
 
 AROS_LH2(void, KrnDisplayAlert,
-	 AROS_LHA(uint32_t, code, D0),
-	 AROS_LHA(const char *, text, A0),
-	 struct KernelBase *, KernelBase, 35, Kernel)
+         AROS_LHA(uint32_t, code, D0),
+         AROS_LHA(const char *, text, A0),
+         struct KernelBase *, KernelBase, 35, Kernel)
 {
     AROS_LIBFUNC_INIT
 
@@ -47,7 +45,7 @@ AROS_LH2(void, KrnDisplayAlert,
     /* Send alert message to the display server */
     if (!SendAlert(code, text))
     {
-    	/* Standard pipe break reaction, see display driver code */
+        /* Standard pipe break reaction, see display driver code */
         ShutdownA(SD_ACTION_POWEROFF);
     }
 
@@ -55,8 +53,8 @@ AROS_LH2(void, KrnDisplayAlert,
 
     if (!KernelIFace)
     {
-    	/* This is early alert, KernelBase is incomplete, and the condition is not recoverable. */
-    	ShutdownA(SD_ACTION_POWEROFF);
+        /* This is early alert, KernelBase is incomplete, and the condition is not recoverable. */
+        ShutdownA(SD_ACTION_POWEROFF);
     }
 
     /*

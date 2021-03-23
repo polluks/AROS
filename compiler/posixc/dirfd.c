@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function dirfd().
 */
@@ -14,19 +13,19 @@
     NAME */
 #include <dirent.h>
 
-	int dirfd(
+        int dirfd(
 
 /*  SYNOPSIS */
-	DIR *dir)
+        DIR *dir)
 
 /*  FUNCTION
-	get directory stream file descriptor
+        get directory stream file descriptor
 
     INPUTS
-	dir - directory stream dir.
+        dir - directory stream dir.
 
     RESULT
-	on error -1 is returned.
+        on error -1 is returned.
 
     NOTES
        This descriptor is the one used internally by the directory stream.  As
@@ -39,8 +38,8 @@
     BUGS
 
     SEE ALSO
- 	open(), __posixc_readdir(), closedir(), rewinddir(), seekdir(),
-	telldir()
+        open(), __posixc_readdir(), closedir(), rewinddir(), seekdir(),
+        telldir()
 
     INTERNALS
 

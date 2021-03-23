@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <asm/cpu.h>
@@ -219,7 +218,7 @@ void core_SetupIDT(apicid_t _APICID, apicidt_t *IGATES)
 void core_IRQHandle(struct ExceptionContext *regs, unsigned long error_code, unsigned long int_number)
 {
     struct KernelBase *KernelBase = getKernelBase();
-#if 0 
+#if 0
     // This debug works only if Local APIC exists...
     DIRQ(
         IPTR __APICBase = core_APIC_GetBase();

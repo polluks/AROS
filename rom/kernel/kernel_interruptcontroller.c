@@ -1,6 +1,5 @@
 /*
-    Copyright © 2017-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2017-2020, The AROS Development Team. All rights reserved.
 
     Desc:
 */
@@ -22,7 +21,7 @@
 #include <kernel_objects.h>
 
 /* We use own implementation of bug(), so we don't need aros/debug.h */
-#define D(x) 
+#define D(x)
 
 /*****************************************************************************
 

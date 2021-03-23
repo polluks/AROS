@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
 
     Desc: WriteBattClock()
-    Lang: english
 */
 #include "battclock_intern.h"
 
@@ -36,13 +34,13 @@ AROS_LH1(void, WriteBattClock,
 
 static int rtas_call(const char *method, int nargs, int nret, void *output, ...)
 {
-	va_list args;
-	void *RTASBase = OpenResource("rtas.resource");
-	int retval;
+        va_list args;
+        void *RTASBase = OpenResource("rtas.resource");
+        int retval;
 
-	va_start(args, output);
-	retval = RTASCall(method, nargs, nret, output, args);
-	va_end(args);
+        va_start(args, output);
+        retval = RTASCall(method, nargs, nret, output, args);
+        va_end(args);
 
-	return retval;
+        return retval;
 }

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 */
 
 /* Utility functions for boot taglist relocation */
@@ -35,7 +34,7 @@ void RelocateBootMsg(const struct TagItem *msg)
     /* First count how much memory we will need */
     while ((tag = LibNextTagItem(&tstate)))
     {
-    	num++;
+        num++;
     }
 
     /* Allocate the memory */
@@ -46,9 +45,9 @@ void RelocateBootMsg(const struct TagItem *msg)
     tstate = (struct TagItem *)msg;
     while ((tag = LibNextTagItem(&tstate)))
     {
-    	dest->ti_Tag  = tag->ti_Tag;
-    	dest->ti_Data = tag->ti_Data;
-    	dest++;
+        dest->ti_Tag  = tag->ti_Tag;
+        dest->ti_Data = tag->ti_Data;
+        dest++;
     }
 
     /* Make sure the list is terminated */
@@ -89,7 +88,7 @@ void RelocateBSSData(struct TagItem *tag)
     unsigned int l = sizeof(struct KernelBSS);
 
     for (bss = (struct KernelBSS *)tag->ti_Data; bss->addr; bss++)
-    	l += sizeof(struct KernelBSS);
+        l += sizeof(struct KernelBSS);
 
     RelocateTagData(tag, l);
 }

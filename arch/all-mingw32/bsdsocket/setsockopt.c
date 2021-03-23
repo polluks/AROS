@@ -1,9 +1,7 @@
 /*
-    Copyright © 2000-2010, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2000-2010, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: English
 */
 
 #include "bsdsocket_intern.h"
@@ -54,18 +52,18 @@
     
     if (sd)
     {
-	struct bsdsocketBase *SocketBase = taskBase->glob;
+        struct bsdsocketBase *SocketBase = taskBase->glob;
 
-	Forbid();
+        Forbid();
 
-	res = WSsetsockopt(sd->s, level, optname, optval, optlen);
-	if (res)
-	    err = WSAGetLastError() - WSABASEERR;
+        res = WSsetsockopt(sd->s, level, optname, optval, optlen);
+        if (res)
+            err = WSAGetLastError() - WSABASEERR;
 
-	Permit();
+        Permit();
 
-	if (res)
-	    SetError(err, taskBase);
+        if (res)
+            SetError(err, taskBase);
     }
 
     return res;

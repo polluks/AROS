@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2012, The AROS Development Team. All rights reserved.
 
     Desc: Linux hidd handling keyboard events.
-    Lang: English.
 */
 
 #define __OOP_NOATTRBASES__
@@ -107,7 +105,7 @@ VOID LinuxKbd__Root__Dispose(OOP_Class *cl, OOP_Object *o, OOP_Msg msg)
     Update_EventHandlers(LSD(cl));
     ReleaseSemaphore(&LSD(cl)->sema);
     
-    OOP_DoSuperMethod(cl, o, msg);  
+    OOP_DoSuperMethod(cl, o, msg);
 }
 
 /***** LinuxKbd::HandleEvent()  ***************************************/
@@ -126,7 +124,7 @@ VOID LinuxKbd__Hidd_LinuxKbd__HandleEvent(OOP_Class *cl, OOP_Object *o, struct p
     hiddcode = scancode2hidd(scancode, LSD(cl));
     
     if (hiddcode != 0xFF)
-    {  
+    {
         if (scancode >= 0x80)
             hiddcode |= IECODE_UP_PREFIX;
 

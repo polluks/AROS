@@ -1,6 +1,5 @@
 /*
-  Copyright © 2004-2020, The AROS Development Team. All rights reserved.
-  $Id$
+  Copyright (C) 2004-2020, The AROS Development Team. All rights reserved.
 */
 
 #define DEBUG 0
@@ -672,7 +671,7 @@ D(bug("]\n"));
 #define WINZOOMTAG        TAG_IGNORE
 #endif
     
-    self = (Object *) DoSuperNew(CLASS, self, 
+    self = (Object *) DoSuperNew(CLASS, self,
         MUIA_Window_Screen,                                    _newIconWin__Screen,
         MUIA_Window_Backdrop,                                  isBackdrop ? TRUE : FALSE,
         MUIA_Window_Borderless,                                isBackdrop ? TRUE : FALSE,
@@ -753,7 +752,7 @@ D(bug("]\n"));
         data->iwd_Flags                                 |= (isRoot) ? IWDFLAG_ISROOT : 0;
         data->iwd_Flags                                 |= (isBackdrop) ? IWDFLAG_ISBACKDROP : 0;
 
-        data->iwd_ViewSettings_Attrib                   = (data->iwd_Flags & IWDFLAG_ISROOT) 
+        data->iwd_ViewSettings_Attrib                   = (data->iwd_Flags & IWDFLAG_ISROOT)
                                                           ? "Workbench"
                                                           : "Drawer";
 
@@ -766,7 +765,7 @@ D(bug("]\n"));
             DoMethod
               (
                 prefs, MUIM_Notify, MUIA_WandererPrefs_Processing, FALSE,
-                (IPTR) self, 3, 
+                (IPTR) self, 3,
                 MUIM_CallHook, &data->iwd_PrefsUpdated_hook, (IPTR)CLASS
               );
 
@@ -795,11 +794,11 @@ D(bug("]\n"));
 
         data->iwd_Flags |= IWDFLAG_SETUP;
 
-        /* If double clicked then we call our own private methods, that's 
+        /* If double clicked then we call our own private methods, that's
            easier then using Hooks */
         DoMethod
           (
-            _newIconWin__IconListObj, MUIM_Notify, MUIA_IconList_DoubleClick, TRUE, 
+            _newIconWin__IconListObj, MUIM_Notify, MUIA_IconList_DoubleClick, TRUE,
             (IPTR) self, 1, MUIM_IconWindow_DoubleClicked
           );
 
@@ -1122,7 +1121,7 @@ IPTR IconWindow__MUIM_Window_Setup
         DoMethod
           (
             data->iwd_ViewSettings_PrefsNotificationObject, MUIM_Notify, MUIA_Background, MUIV_EveryTime,
-            (IPTR) self, 3, 
+            (IPTR) self, 3,
             MUIM_CallHook, &data->iwd_ProcessBackground_hook, (IPTR)CLASS
           );
 
@@ -1131,7 +1130,7 @@ IPTR IconWindow__MUIM_Window_Setup
             DoMethod
               (
                 data->iwd_ViewSettings_PrefsNotificationObject, MUIM_Notify, MUIA_IconWindowExt_ImageBackFill_BGRenderMode, MUIV_EveryTime,
-                (IPTR) self, 3, 
+                (IPTR) self, 3,
                 MUIM_CallHook, &data->iwd_ProcessBackground_hook, (IPTR)CLASS
               );
         }
@@ -1139,21 +1138,21 @@ IPTR IconWindow__MUIM_Window_Setup
         DoMethod
           (
             data->iwd_ViewSettings_PrefsNotificationObject, MUIM_Notify, MUIA_IconWindowExt_ImageBackFill_BGTileMode, MUIV_EveryTime,
-            (IPTR) self, 3, 
+            (IPTR) self, 3,
             MUIM_CallHook, &data->iwd_ProcessBackground_hook, (IPTR)CLASS
           );
 
         DoMethod
           (
             data->iwd_ViewSettings_PrefsNotificationObject, MUIM_Notify, MUIA_IconWindowExt_ImageBackFill_BGXOffset, MUIV_EveryTime,
-            (IPTR) self, 3, 
+            (IPTR) self, 3,
             MUIM_CallHook, &data->iwd_ProcessBackground_hook, (IPTR)CLASS
           );
 
         DoMethod
           (
             data->iwd_ViewSettings_PrefsNotificationObject, MUIM_Notify, MUIA_IconWindowExt_ImageBackFill_BGYOffset, MUIV_EveryTime,
-            (IPTR) self, 3, 
+            (IPTR) self, 3,
             MUIM_CallHook, &data->iwd_ProcessBackground_hook, (IPTR)CLASS
           );
 

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2012, The AROS Development Team. All rights reserved.
 
     C99 function setvbuf().
 */
@@ -15,13 +14,13 @@
     NAME */
 #include <stdio.h>
 
-	int setvbuf (
+        int setvbuf (
 
 /*  SYNOPSIS */
-	FILE *stream,
-	char *buf,
-	int mode,
-	size_t size)
+        FILE *stream,
+        char *buf,
+        int mode,
+        size_t size)
 
 /*  FUNCTION
         Sets the buffer and the mode associated with a stream.
@@ -54,8 +53,8 @@
 {
     if (!stream)
     {
-	errno = EINVAL;
-	return EOF;
+        errno = EINVAL;
+        return EOF;
     }
 
     /* Pointer has to be longword aligned */

@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015, The AROS Development Team. All rights reserved.
 
     Desc:
 */
@@ -11,8 +10,8 @@
 #include <kernel_base.h>
 
 AROS_LH1(cpumask_t, KrnGetCPUMask,
-	AROS_LHA(cpuid_t, id, D0),
-	struct KernelBase *, KernelBase, 45, Kernel)
+        AROS_LHA(cpuid_t, id, D0),
+        struct KernelBase *, KernelBase, 45, Kernel)
 {
     AROS_LIBFUNC_INIT
 

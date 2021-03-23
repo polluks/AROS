@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015-2016, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015-2016, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/types/spinlock_s.h>
@@ -35,8 +34,8 @@
 
 #define IRQBANK_POINTER(bank)   ((bank == 0) ? GPUIRQ_ENBL0 : (bank == 1) ? GPUIRQ_ENBL1 : ARMIRQ_ENBL)
 
-#define IRQ_BANK1	0x00000100
-#define IRQ_BANK2	0x00000200
+#define IRQ_BANK1       0x00000100
+#define IRQ_BANK2       0x00000200
 
 #undef D
 #define D(x) x

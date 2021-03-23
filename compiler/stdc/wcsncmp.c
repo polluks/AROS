@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team. All rights reserved.
 
     C99 function wcsncmp().
 */
@@ -13,21 +12,21 @@
     NAME */
 #include <wchar.h>
 
-	int wcsncmp(
+        int wcsncmp(
 
 /*  SYNOPSIS */
-	const wchar_t *wcstra,
+        const wchar_t *wcstra,
         const wchar_t *wcstrb,
         size_t cnt)
 
 /*  FUNCTION
-	Lexicographically compares two null-terminated wide strings, upto the
-	specified length
+        Lexicographically compares two null-terminated wide strings, upto the
+        specified length
 
     INPUTS
-	wcstra - wide string to compare.
-	wcstrb - wide string to compare.
-	cnt - maximum number of wide characters to compare.
+        wcstra - wide string to compare.
+        wcstrb - wide string to compare.
+        cnt - maximum number of wide characters to compare.
 
     RESULT
 
@@ -48,8 +47,8 @@
                 *wcstrb &&
                 (*wcstra == *wcstrb))
     {
-	wcstra++;
-	wcstrb++;
+        wcstra++;
+        wcstrb++;
     }
 
     if ((cnt > 0) && *wcstra < *wcstrb)

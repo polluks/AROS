@@ -1,6 +1,5 @@
 /*
-    Copyright © 2010-2019, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2019, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -23,7 +22,7 @@
 
       AROS_LH1(struct pipe_screen *, CreatePipeScreen,
 
-/*  SYNOPSIS */ 
+/*  SYNOPSIS */
       AROS_LHA(PipeHandle_t, pipe, A0),
 
 /*  LOCATION */

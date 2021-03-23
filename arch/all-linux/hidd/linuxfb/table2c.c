@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2001, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2001, The AROS Development Team. All rights reserved.
 */
 
 #include <stdio.h>
@@ -59,6 +58,6 @@ exit:
 
     if (NULL != out)
     fclose(out);
-*/    
+*/
     return ret;
 }

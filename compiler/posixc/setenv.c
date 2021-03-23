@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2012, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function setenv().
 */
@@ -13,12 +12,12 @@
     NAME */
 #include <stdlib.h>
 
-	int setenv (
+        int setenv (
 
 /*  SYNOPSIS */
-	const char *name,
-	const char *value,
-	int         overwrite)
+        const char *name,
+        const char *value,
+        int         overwrite)
 /*  FUNCTION
         Change or add an environment variable.
 
@@ -30,8 +29,8 @@
                     changed
                     
     RESULT
-    	Returns zero on success, or -1 if there was insufficient
-    	space in the environment.
+        Returns zero on success, or -1 if there was insufficient
+        space in the environment.
 
     NOTES
         This function must not be used in a shared library.
@@ -47,7 +46,7 @@
 ******************************************************************************/
 {
     if (!overwrite && FindVar(name, LV_VAR))
-    	return 0;
+        return 0;
 
     return -!SetVar(name, value, -1, LV_VAR | GVF_LOCAL_ONLY);
 } /* setenv */

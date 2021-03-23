@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2016, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2016, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/kernel.h>
@@ -27,7 +26,7 @@ int __startup start(const struct TagItem *tags)
 
     while ((tag = LibNextTagItem((struct TagItem **)&tags)))
     {
-    	KPrintf(hif, "0x%08lX 0x%p\n", tag->ti_Tag, tag->ti_Data);
+        KPrintf(hif, "0x%08lX 0x%p\n", tag->ti_Tag, tag->ti_Data);
     }
 
     return 0;

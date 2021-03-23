@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2011, The AROS Development Team. All rights reserved.
 
     Desc: Deutsch (German) PC105 Keymap
-    Lang: English
 */
 
 #include "common.h"
@@ -190,7 +188,7 @@ STATIC CONST UBYTE hikeymaptypes[] =
   2 = `
   3 = ^
   4 = ~
-  5 = " 
+  5 = "
   6 = °
   
 */
@@ -231,7 +229,7 @@ STATIC CONST UBYTE e_descr[] =
     'è' /*0xE8*/, 'ê' /*0xEA*/, 'è' /*0xE8*/, 'è' /*0xE8*/, 'è' /*0xE8*/, 'è' /*0xE8*/, 'è' /*0xE8*/,
 
     'E',          'É' /*0xC9*/, 'È' /*0xC8*/, 'Ê' /*0xCA*/, 'E',          'Ë' /*0xCB*/, 'E',
-    'É' /*0xC9*/, 'É' /*0xC9*/, 'Ê' /*0xCA*/, 'É' /*0xC9*/, 'É' /*0xC9*/, 'É' /*0xC9*/, 'É' /*0xC9*/, 
+    'É' /*0xC9*/, 'É' /*0xC9*/, 'Ê' /*0xCA*/, 'É' /*0xC9*/, 'É' /*0xC9*/, 'É' /*0xC9*/, 'É' /*0xC9*/,
     'È' /*0xC8*/, 'Ê' /*0xCA*/, 'È' /*0xC8*/, 'È' /*0xC8*/, 'È' /*0xC8*/, 'È' /*0xC8*/, 'È' /*0xC8*/
 };
 
@@ -411,7 +409,7 @@ STATIC CONST UBYTE key0c_descr[] =
 {
     DPF_DEAD, 1 + (7 << DP_2DFACSHIFT),
     DPF_DEAD, 2 + (7 << DP_2DFACSHIFT),
-    0, '=', 
+    0, '=',
     0, '+'
 };
 

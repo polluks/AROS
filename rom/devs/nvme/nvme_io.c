@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team. All rights reserved
-    $Id$
+    Copyright (C) 2020-2021, The AROS Development Team. All rights reserved
 */
  
  #include <aros/debug.h>
@@ -41,11 +40,6 @@
 
 #include LC_LIBDEFS_FILE
 
-#define DMAFLAGS_PREREAD     0
-#define DMAFLAGS_PREWRITE    DMA_ReadFromRAM
-#define DMAFLAGS_POSTREAD    (1 << 31)
-#define DMAFLAGS_POSTWRITE   (1 << 31) | DMA_ReadFromRAM
-
 #define DIO(x)
 
 static BOOL nvme_sector_rw(struct IORequest *io, UQUAD off64, BOOL is_write)
@@ -59,15 +53,22 @@ static BOOL nvme_sector_rw(struct IORequest *io, UQUAD off64, BOOL is_write)
     struct completionevent_handler ioehandle;
     struct nvme_command cmdio;
     int queueno;
-    BOOL done = FALSE;
 
     D(
-        bug("[NVME%02ld] %s()\n", unit->au_UnitNum, __func__);
+        bug("[NVME%02ld] %s(%08x%08x)\n", unit->au_UnitNum, __func__, (off64 >> 32), off64 & 0xFFFFFFFF);
         bug("[NVME%02ld] %s: bus @ 0x%p\n", unit->au_UnitNum, __func__, unit->au_Bus);
         bug("[NVME%02ld] %s: bus dev @ 0x%p\n", unit->au_UnitNum, __func__, unit->au_Bus->ab_Dev);
 
         bug("[NVME%02ld] %s: %u queues available\n", unit->au_UnitNum, __func__, unit->au_Bus->ab_Dev->queuecnt);
     )
+
+    if (((off64 >> unit->au_SecShift) > unit->au_High)
+        || len == 0)
+    {
+        bug("[NVME%02ld] %s: %x > %x\n", unit->au_UnitNum, __func__, (off64 >> unit->au_SecShift), unit->au_High);
+        io->io_Error = IOERR_BADADDRESS;
+        return TRUE;
+    }
 
     ULONG nsid = (unit->au_UnitNum & ((1 << 12) - 1)) + 1;
     queueno = 1 + (KrnGetCPUNumber() % unit->au_Bus->ab_Dev->queuecnt);
@@ -75,9 +76,14 @@ static BOOL nvme_sector_rw(struct IORequest *io, UQUAD off64, BOOL is_write)
 
     DIO(bug("[NVME%02ld(%02u)] %s: queue @ 0x%p\n", unit->au_UnitNum, queueno, __func__, nvmeq);)
 
-    ioehandle.ceh_Task = FindTask(NULL);
+    ioehandle.ceh_Task = nvmeq->q_IOTask;
     ioehandle.ceh_SigSet = SIGF_SINGLE;
-
+    ioehandle.ceh_Msg = io;
+    
+    ObtainSemaphore(&unit->au_Lock);
+    Remove(&io->io_Message.mn_Node);
+    ReleaseSemaphore(&unit->au_Lock);
+    
     memset(&cmdio, 0, sizeof(cmdio));
     if (is_write) {
             cmdio.rw.op.opcode = nvme_cmd_write;
@@ -87,23 +93,19 @@ static BOOL nvme_sector_rw(struct IORequest *io, UQUAD off64, BOOL is_write)
 
     cmdio.rw.nsid = AROS_LONG2LE(nsid);
     cmdio.rw.prp1 = (UQUAD)(IPTR)data; // needs to be in LE
-    cmdio.rw.slba = off64 >> (unit->au_SecShift - 9); // needs to be in LE
     cmdio.rw.length = AROS_WORD2LE((len >> unit->au_SecShift) - 1);
+    cmdio.rw.slba = off64 >> unit->au_SecShift;
     cmdio.rw.control = 0;
     cmdio.rw.dsmgmt = 0;
 
-    DIO(bug("[NVME%02ld(%02u)] %s: %08x%08x (%u)\n", unit->au_UnitNum, queueno, __func__, cmdio.rw.slba >> 32, cmdio.rw.slba & 0xFFFFFFFF, AROS_LE2WORD(cmdio.rw.length));)
-    
+    DIO(
+        bug("[NVME%02ld(%02u)] %s: %08x%08x (%u)\n", unit->au_UnitNum, queueno, __func__, (cmdio.rw.slba >> 32), (cmdio.rw.slba & 0xFFFFFFFF), AROS_LE2WORD(cmdio.rw.length));
+    )
+
     CachePreDMA(data, &len, is_write ? DMAFLAGS_PREWRITE : DMAFLAGS_PREREAD);
     nvme_submit_iocmd(nvmeq, &cmdio, &ioehandle);
-    Wait(ioehandle.ceh_SigSet);
-    CachePostDMA(data, &len, is_write ? DMAFLAGS_POSTWRITE : DMAFLAGS_POSTREAD);
-    if (!ioehandle.ceh_Status)
-        done = TRUE;
 
-    DIO(bug("[NVME%02ld(%02u)] %s: NVME IO Status %08x\n", unit->au_UnitNum, queueno, __func__, ioehandle.ceh_Status);)
-
-    return done;
+    return FALSE;
 }
 
 
@@ -168,30 +170,34 @@ AROS_LH1(void, BeginIO,
 
     switch (io->io_Command) {
     case CMD_WRITE:
-        D(bug("[NVME%02ld] CMD_WRITE\n", unit->au_UnitNum);)
+        D(bug("[NVME%02ld] CMD_WRITE ", unit->au_UnitNum);)
         off64  = iotd->iotd_Req.io_Offset;
+        D(bug("%08x%08x (%u)\n", off64 >> 32, off64 & 0xFFFFFFFF, iotd->iotd_Req.io_Length);)
         done = nvme_sector_rw(io, off64, TRUE);
         break;
 
     case TD_WRITE64:
     case NSCMD_TD_WRITE64:
-        D(bug("[NVME%02ld] TD_WRITE64\n", unit->au_UnitNum);)
+        D(bug("[NVME%02ld] TD_WRITE64 ", unit->au_UnitNum);)
         off64  = iotd->iotd_Req.io_Offset;
         off64 |= ((UQUAD)iotd->iotd_Req.io_Actual)<<32;
+        D(bug("%08x%08x (%u)\n", off64 >> 32, off64 & 0xFFFFFFFF, iotd->iotd_Req.io_Length);)
         done = nvme_sector_rw(io, off64, TRUE);
         break;
 
     case CMD_READ:
-        D(bug("[NVME%02ld] CMD_READ\n", unit->au_UnitNum);)
+        D(bug("[NVME%02ld] CMD_READ ", unit->au_UnitNum);)
         off64  = iotd->iotd_Req.io_Offset;
+        D(bug("%08x%08x (%u)\n", off64 >> 32, off64 & 0xFFFFFFFF, iotd->iotd_Req.io_Length);)
         done = nvme_sector_rw(io, off64, FALSE);
         break;
 
     case TD_READ64:
     case NSCMD_TD_READ64:
-        D(bug("[NVME%02ld] TD_READ64\n", unit->au_UnitNum);)
+        D(bug("[NVME%02ld] TD_READ64 ", unit->au_UnitNum);)
         off64  = iotd->iotd_Req.io_Offset;
         off64 |= ((UQUAD)iotd->iotd_Req.io_Actual)<<32;
+        D(bug("%08x%08x (%u)\n", off64 >> 32, off64 & 0xFFFFFFFF, iotd->iotd_Req.io_Length);)
         done = nvme_sector_rw(io, off64, FALSE);
         break;
 
@@ -241,15 +247,15 @@ AROS_LH1(void, BeginIO,
         geom = data;
         SetMem(geom, 0, len);
 
-        geom->dg_Heads        = 1;
+        geom->dg_Heads        = unit->nu_Heads;
         geom->dg_SectorSize   = 1 << unit->au_SecShift;
         if (unit->au_SecCnt >> 32 != 0)
-            geom->dg_TotalSectors = 0xffffffff;
+            geom->dg_TotalSectors = 0xFFFFFFFF;
         else
             geom->dg_TotalSectors = unit->au_SecCnt;
-        geom->dg_Cylinders    = 1;
-        geom->dg_CylSectors   = 1;
-        geom->dg_TrackSectors = geom->dg_TotalSectors;
+        geom->dg_Cylinders    = unit->nu_Cyl;
+        geom->dg_CylSectors   = 63 * unit->nu_Heads;
+        geom->dg_TrackSectors = 63;
         geom->dg_BufMemType   = MEMF_PUBLIC;
         geom->dg_DeviceType   = DG_DIRECT_ACCESS;
         geom->dg_Flags        = 0;

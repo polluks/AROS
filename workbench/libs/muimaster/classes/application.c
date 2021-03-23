@@ -1,9 +1,8 @@
 /*
-    Copyright © 2002-2020, The AROS Development Team.
-    Copyright © 1999, David Le Corfec.
+    Copyright (C) 2002-2020, The AROS Development Team.
+    Copyright (C) 1999, David Le Corfec.
     All rights reserved.
 
-    $Id$
 */
 
 #include <exec/types.h>
@@ -2206,8 +2205,8 @@ static IPTR Application__MUIM_Save(struct IClass *cl, Object *obj,
 *
 *   FUNCTION
 *       Redraw any damaged portions within all of the application's windows.
-*       This method is normally only used in hooks that handle Intuition 
-*       messages received while modal requesters are open (e.g. ASL file 
+*       This method is normally only used in hooks that handle Intuition
+*       messages received while modal requesters are open (e.g. ASL file
 *       requesters). If such a hook is not used, a modal requester may damage
 *       the contents of your application windows when the requester is moved.
 *

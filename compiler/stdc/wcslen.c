@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team. All rights reserved.
 
     C99 function wcslen().
 */
@@ -13,19 +12,19 @@
     NAME */
 #include <wchar.h>
 
-	size_t wcslen(
+        size_t wcslen(
 
 /*  SYNOPSIS */
-	const wchar_t *wcstr)
+        const wchar_t *wcstr)
 
 /*  FUNCTION
-	Returns the length of a wide string.
+        Returns the length of a wide string.
 
     INPUTS
-	wcstr - wide string to tally.
+        wcstr - wide string to tally.
 
     RESULT
-	The number of non-null wide characters, in the wide string.
+        The number of non-null wide characters, in the wide string.
 
     NOTES
 

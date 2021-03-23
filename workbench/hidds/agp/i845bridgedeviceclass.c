@@ -1,6 +1,5 @@
 /*
     Copyright 2010, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <hidd/agp.h>
@@ -71,7 +70,7 @@ BOOL METHOD(i845BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     bridgedev = gbddata->bridge->PciDevice;
     bridgeagpcap = gbddata->bridge->AgpCapability;
 
-    /* Getting version info */ 
+    /* Getting version info */
     D(major = (readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) >> 4) & 0xf);
     D(minor = readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) & 0xf);
     
@@ -135,7 +134,7 @@ BOOL METHOD(i845BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
 
     gbddata->state = STATE_INITIALIZED;
 
-    return TRUE;    
+    return TRUE;
 }
 
 VOID METHOD(i845BridgeDevice, Hidd_AGPBridgeDevice, FlushChipset)

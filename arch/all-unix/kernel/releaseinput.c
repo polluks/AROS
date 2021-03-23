@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 */
 
 /*
@@ -24,7 +23,7 @@
 #include <unistd.h>
 
 AROS_LH0I(void, KrnReleaseInput,
-	  struct KernelBase *, KernelBase, 34, Kernel)
+          struct KernelBase *, KernelBase, 34, Kernel)
 {
     AROS_LIBFUNC_INIT
 

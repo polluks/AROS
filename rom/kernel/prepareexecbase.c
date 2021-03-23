@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     ExecBase initialization, no-MMU version.
 */
@@ -17,7 +16,7 @@
 
 struct ExecBase *krnPrepareExecBase(UWORD *ranges[], struct MemHeader *mh, struct TagItem *bootMsg)
 {
-    struct Resident *exec; 
+    struct Resident *exec;
     struct ExecBase *sysBase;
     struct Resident **resList = krnRomTagScanner(mh, ranges);
 

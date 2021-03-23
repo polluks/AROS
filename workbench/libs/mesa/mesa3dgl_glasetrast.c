@@ -1,6 +1,5 @@
 /*
-    Copyright © 2011-2019, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2011-2019, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -28,7 +27,7 @@
 
     INPUTS
 
-        ctx - 
+        ctx -
         tagList - a pointer to tags to be used during creation.
 
     TAGS
@@ -66,7 +65,7 @@
             MESA3DGLSelectRastPort(_ctx, tagList);
 
             /* Do standard initialization */
-            MESA3DGLStandardInit(_ctx, tagList); 
+            MESA3DGLStandardInit(_ctx, tagList);
 
             /* TODO: what to do with visual and framebuffer, if BPP changes, we are in trouble */
 

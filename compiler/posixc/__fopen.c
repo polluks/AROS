@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     C99 function fopen().
 */
@@ -16,9 +15,9 @@
 #include "__fdesc.h"
 
 FILE * __fopen (
-	const char * pathname,
-	const char * mode,
-	int    large)
+        const char * pathname,
+        const char * mode,
+        int    large)
 {
     int fd;
     int openmode;
@@ -32,7 +31,7 @@ FILE * __fopen (
     if (pathname && (strlen(pathname) > 0) && openmode != -1)
     {
         FILE *ffile;
-	fdesc *fdesc;
+        fdesc *fdesc;
 
         D(bug("[posixc] %s: path '%s'\n", __func__, pathname));
 

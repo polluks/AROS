@@ -1,9 +1,7 @@
 /*
-    Copyright © 2011, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2011, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: English
 */
 
 /******************************************************************************
@@ -60,7 +58,7 @@ AROS_SHAH(STRPTR *,,ADD ,/K/M,NULL,"Device and/or directory(ies) and/or file nam
     UBYTE  buf2[MAX_PATH_LEN];
     LONG   size;
 
-    if (    (SHArg(ADD) && SHArg(DIR))  
+    if (    (SHArg(ADD) && SHArg(DIR))
          || (SHArg(ADD) && SHArg(FILE))
          || (SHArg(DIR) && SHArg(FILE))
        )

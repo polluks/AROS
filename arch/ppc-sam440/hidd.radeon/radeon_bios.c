@@ -1,9 +1,7 @@
 /*
-    Copyright © 2004-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2004-2017, The AROS Development Team. All rights reserved.
 
     Desc: ATI radeon driver. BIOS part.
-    Lang: English
 */
 
 /*
@@ -27,7 +25,7 @@
 #include "radeon_bios.h"
 #include "radeon_bios_rom.h"
 
-#define DEBUG 1 
+#define DEBUG 1
 #include <aros/debug.h>
 
 #undef HiddPCIDeviceAttrBase
@@ -323,7 +321,7 @@ BOOL RADEONGetClockInfoFromBIOS(struct ati_staticdata *sd)
             sd->Card.sclk = RADEON_BIOS16(pll_info_block + 8) / 100.0;
             sd->Card.mclk = RADEON_BIOS16(pll_info_block + 10) / 100.0;
         }
-    }    
+    }
     
     return TRUE;
 }

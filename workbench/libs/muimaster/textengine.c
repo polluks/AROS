@@ -1,9 +1,8 @@
-/* 
-    Copyright © 2002-2020, The AROS Development Team.
-    Copyright © 1999, David Le Corfec.
+/*
+    Copyright (C) 2002-2020, The AROS Development Team.
+    Copyright (C) 1999, David Le Corfec.
     All rights reserved.
 
-    $Id$
 */
 
 #include <ctype.h>
@@ -366,7 +365,7 @@ static CONST_STRPTR parse_escape_code(ZTextLine * ztl,
                 {
                     /* According to the MUI autodocs, the result of
                      * CreateImage may be NULL, but then \33O[] has to
-                     * simply draw nothing, so it shouldn't be considered 
+                     * simply draw nothing, so it shouldn't be considered
                      * an error.
                      * Without this, AROS crashed, if 00000000 was used.
                      */

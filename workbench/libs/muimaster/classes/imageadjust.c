@@ -1,6 +1,5 @@
 /*
-    Copyright © 2002-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2002-2020, The AROS Development Team. All rights reserved.
 */
 
 #define MUIMASTER_YES_INLINE_STDARG
@@ -1106,7 +1105,7 @@ BOOPSI_DISPATCHER(IPTR, Imageadjust_Dispatcher, cl, obj, msg)
         return Imageadjust__MUIM_Imageadjust_ReadExternal(cl, obj,
             (APTR) msg);
 
-    //case MUIM_Imageadjust_ExternalSelected: 
+    //case MUIM_Imageadjust_ExternalSelected:
     //    return Imageadjust__MUIM_Imageadjust_ExternalSelected(cl, obj,
     //        (APTR)msg);
 

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/crt_replacement.h>
@@ -31,7 +30,7 @@
     RESULT
 
         TRUE  - Patch entry is added to the master patch list
-        FALSE - Patch with matching name already in the list 
+        FALSE - Patch with matching name already in the list
 
     NOTES
 

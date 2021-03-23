@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/libcall.h>
@@ -8,7 +7,7 @@
 #include "kernel_base.h"
 
 AROS_LH0I(void, KrnSti,
-	  struct KernelBase *, KernelBase, 10, Kernel)
+          struct KernelBase *, KernelBase, 10, Kernel)
 {
     AROS_LIBFUNC_INIT
 
@@ -18,7 +17,7 @@ AROS_LH0I(void, KrnSti,
      * Otherwise we can end up in nested interrupts
      */
     if (*KernelIFace.SuperState == 0)
-	*KernelIFace.IntState = INT_ENABLE;
+        *KernelIFace.IntState = INT_ENABLE;
 
     AROS_LIBFUNC_EXIT
 }

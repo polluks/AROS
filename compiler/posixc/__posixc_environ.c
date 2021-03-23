@@ -1,6 +1,5 @@
 /*
-    Copyright © 2012-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2012-2021, The AROS Development Team. All rights reserved.
 
     Desc: AROS specific function for environ emulation handling
 */
@@ -21,16 +20,16 @@
     NAME */
 #include <stdlib.h>
 
-	int __posixc_set_environptr (
+        int __posixc_set_environptr (
 
 /*  SYNOPSIS */
-	char ***environptr)
+        char ***environptr)
 
 /*  FUNCTION
-	This function is called to enable environ emulation mode.
+        This function is called to enable environ emulation mode.
 
     INPUTS
-	environptr - ptr to the child environ variable (== &environ).
+        environptr - ptr to the child environ variable (== &environ).
 
     RESULT
         0 on fail, other value on success
@@ -49,7 +48,7 @@
         This is still TODO.
 
     SEE ALSO
-        __posixc_get_environptr(), getenv(), setenv()
+        __posixc_get_environptr(), __posixc_getenv(), setenv()
 
     INTERNALS
 
@@ -76,19 +75,19 @@
     NAME */
 #include <stdlib.h>
 
-	char ***__posixc_get_environptr (
+        char ***__posixc_get_environptr (
 
 /*  SYNOPSIS */
-	void)
+        void)
 
 /*  FUNCTION
-	This function the get pointer to the child environ global variable
+        This function the get pointer to the child environ global variable
         currently used by posixc.library.
 
     INPUTS
         -
 
-    RESULT 
+    RESULT
         environptr - ptr to the child environ variable (== &environ).
                      NULL is return if envirion emulation is disabled.
 

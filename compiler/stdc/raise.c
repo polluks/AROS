@@ -1,6 +1,5 @@
 /*
-    Copyright © 2009-2012, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2009-2012, The AROS Development Team. All rights reserved.
 */
 
 #include "__signal.h"
@@ -10,10 +9,10 @@
     NAME */
 #include <signal.h>
 
-	int raise(
+        int raise(
 
 /*  SYNOPSIS */
-	int signum)
+        int signum)
 
 /*  FUNCTION
         Calls the handler of a signal

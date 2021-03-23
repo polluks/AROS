@@ -1,9 +1,7 @@
 /*
-    Copyright © 2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2013, The AROS Development Team. All rights reserved.
 
     Desc: LinuxInput hidd initialization code.
-    Lang: English.
 */
 
 #define DEBUG 0
@@ -29,7 +27,7 @@
 
 #define O_RDONLY    0
 
-/* 
+/*
  * Some attrbases needed as global vars.
  * These are write-once read-many.
  */

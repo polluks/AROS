@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <android/log.h>
@@ -24,7 +23,7 @@ static void flushLog(void)
     buf[p] = 0;
     __android_log_write(ANDROID_LOG_DEBUG, "AROS", buf);
     p = 0;
-}    
+}
  
 int KPutC(int chr)
 {
@@ -41,8 +40,8 @@ int KPutC(int chr)
     {
         buf[p++] = chr;
 
-    	if (p == BUFFER_SIZE - 1)
-    	    flushLog();
+        if (p == BUFFER_SIZE - 1)
+            flushLog();
     }
 
     return ret;

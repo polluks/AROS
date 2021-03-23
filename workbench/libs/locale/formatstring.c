@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: english
 */
 
 #include <stdarg.h>
@@ -46,7 +44,7 @@ APTR InternalFormatString(const struct Locale * locale,
     template_pos = 0;           /* Current position in the template string */
     state = OUTPUT;             /* current state of parsing */
     end = FALSE;
-    max_argpos = 1;
+    max_argpos = 0;
     arg_counter = 0;
     max_argpos_datasize = 0;
 
@@ -571,6 +569,9 @@ APTR InternalFormatString(const struct Locale * locale,
         }
     }
 
+    if (max_argpos == 0)
+        return dataStream;
+
     return (APTR)(ARG(max_argpos) + max_argpos_datasize);
 }
 
@@ -629,13 +630,7 @@ APTR InternalFormatString(const struct Locale * locale,
                                 dataStream, indices, putCharFunc);
 
     CloseLocale(def_locale);
-    // TODO: Fix InternalFormatString so the following isnt needed...
-    if ((indexSize == 0) && (retval != (APTR)dataStream))
-    {
-        bug("[locale] %s: fixup retval for fmt with 0 args (0x%p -> 0x%p)\n", __func__, retval, dataStream);
-        bug("[locale] %s: InternalFormatString returned wrong value - DEBUG!\n", __func__);
-        retval = (APTR)dataStream;
-    }
+
     return retval;
 
     AROS_LIBFUNC_EXIT

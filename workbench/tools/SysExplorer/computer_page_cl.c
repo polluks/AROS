@@ -1,6 +1,5 @@
 /*
     Copyright (C) 2013-2021, The AROS Development Team.
-    $Id$
 */
 
 #include <aros/debug.h>
@@ -59,15 +58,15 @@ ULONG ExtUDivMod32(ULONG a, ULONG b, ULONG *mod)
 void PrintNum(char *buffer, LONG bufsize, ULONG num)
 {
     /* MBytes ? */
-    if(num > 1023) 
+    if(num > 1023)
     {
         ULONG  x, xx;
         char* fmt = "meg";
         
         /* GBytes ? */
         if(num > 0xfffff)
-        { 
-            num >>= 10; 
+        {
+            num >>= 10;
             fmt = "gig";
         }
         
@@ -87,7 +86,7 @@ void PrintNum(char *buffer, LONG bufsize, ULONG num)
 
         snprintf(buffer, bufsize, "%d.%d %s", (int)num, (int)x, fmt);
     }
-    else 
+    else
     {
         snprintf(buffer, bufsize, "%d K", (int)num);
     }
@@ -103,7 +102,7 @@ ULONG ComputeKBytes(APTR a, APTR b)
 static ULONG GetProcessorsCount()
 {
     ULONG count = 0;
-    struct TagItem cpuCountTags [] = 
+    struct TagItem cpuCountTags [] =
     {
         {GCIT_NumberOfProcessors, (IPTR)&count},
         {TAG_DONE, TAG_DONE}
@@ -125,7 +124,7 @@ struct
     { PROCESSORARCH_PPC, "PowerPC" },
     { PROCESSORARCH_X86, "x86" },
     { PROCESSORARCH_ARM, "ARM" },
-    { 0, NULL }   
+    { 0, NULL }
 };
 
 struct
@@ -144,7 +143,7 @@ struct
 #define CPU_PLATFORM_ARCH   "64bit"
 #else
 #define CPU_PLATFORM_ARCH   "32bit"
-#endif    
+#endif
 static VOID ParseProcessorInformation(Object *GrpProcessors)
 {
     CONST_STRPTR architecturestring = "", endiannessstring = "";
@@ -185,7 +184,7 @@ static VOID ParseProcessorInformation(Object *GrpProcessors)
             break;
         }
         j++;
-    }       
+    }
 
     CPUInfoLabelStr = AllocVec(14, MEMF_PUBLIC);
     sprintf(CPUInfoLabelStr, "Archictecture");
@@ -299,7 +298,7 @@ static VOID ParseProcessorInformation(Object *GrpProcessors)
 static inline void VersionStr(char *ptr, int len, struct Library *base)
 {
     snprintf(ptr, len, "%d.%d", base->lib_Version, base->lib_Revision);
-}    
+}
 
 char *SplitBootArgs(struct TagItem *bootinfo, char *buffer, LONG bufsize)
 {

@@ -1,6 +1,5 @@
 /*
     Copyright 2017-2018, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #define DEBUG 0
@@ -44,7 +43,7 @@ int main()
 
     APTR ProcessorBase;
     IPTR coreCount = 1, core;
-    struct TagItem tags [] = 
+    struct TagItem tags [] =
     {
         { GCIT_NumberOfProcessors,      (IPTR)&coreCount },
         { 0,                            (IPTR)NULL }
@@ -356,7 +355,7 @@ int main()
                 D(bug("[SMP-Test] %s: Displaying output BitMap...\n", __func__);)
                 BltBitMapRastPort (outputBMap, 0, 0,
                     displayWin->RPort, displayWin->BorderLeft, displayWin->BorderTop,
-                    width, height, 0xC0); 
+                    width, height, 0xC0);
             }
 
             D(bug("[SMP-Test] %s: Letting workers know we are finished ...\n", __func__);)

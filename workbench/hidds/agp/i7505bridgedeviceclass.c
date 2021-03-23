@@ -1,6 +1,5 @@
 /*
     Copyright 2010, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <hidd/agp.h>
@@ -49,7 +48,7 @@ BOOL METHOD(i7505BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     OOP_Object * bridgedev = NULL;
     UBYTE bridgeagpcap = 0;
     UBYTE aperture_size_value = 0;
-    UWORD mchcfg = 0;    
+    UWORD mchcfg = 0;
 
     /* Scan for bridge and agp devices */
     if (!OOP_DoMethod(o, (OOP_Msg)&saddmsg))
@@ -64,7 +63,7 @@ BOOL METHOD(i7505BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     bridgedev = gbddata->bridge->PciDevice;
     bridgeagpcap = gbddata->bridge->AgpCapability;
 
-    /* Getting version info */ 
+    /* Getting version info */
     D(major = (readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) >> 4) & 0xf);
     D(minor = readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) & 0xf);
     
@@ -125,6 +124,6 @@ BOOL METHOD(i7505BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
 
     gbddata->state = STATE_INITIALIZED;
 
-    return TRUE;    
+    return TRUE;
 }
 

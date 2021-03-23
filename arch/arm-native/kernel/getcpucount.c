@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/kernel.h>
@@ -10,7 +9,7 @@
 #include "kernel_intern.h"
 
 AROS_LH0(cpuid_t, KrnGetCPUCount,
-	 struct KernelBase *, KernelBase, 40, Kernel)
+         struct KernelBase *, KernelBase, 40, Kernel)
 {
     AROS_LIBFUNC_INIT
 

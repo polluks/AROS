@@ -1,6 +1,5 @@
-/* 
-    Copyright © 2003-2020, The AROS Development Team. All rights reserved.
-    $Id$
+/*
+    Copyright (C) 2003-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <string.h>
@@ -78,7 +77,7 @@ struct TextFont *zune_font_get(Object *obj, IPTR font)
                 != (SIPTR) MUIV_Font_Fixed)
             {
                 /* don't do this, would result in the font being closed more than once */
-/*  		return (mri->mri_Fonts[-preset] = zune_font_get(obj, MUIV_Font_Normal)); */
+/*              return (mri->mri_Fonts[-preset] = zune_font_get(obj, MUIV_Font_Normal)); */
                 return zune_font_get(obj, MUIV_Font_Normal);
             }
         }

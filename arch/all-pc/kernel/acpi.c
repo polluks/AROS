@@ -1,6 +1,5 @@
 /*
-    Copyright © 2017-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2017-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/asmcall.h>
@@ -137,7 +136,7 @@ static ACPI_STATUS acpiInitDevice(ACPI_HANDLE handle, ULONG level, void *context
         Status = AcpiGetName(handle, ACPI_FULL_PATHNAME, &nameBuffer);
         if (Status != AE_BUFFER_OVERFLOW)
         {
-          bug("[Kernel:ACPI] %s: device '%s'\n", __func__, devPath);  
+          bug("[Kernel:ACPI] %s: device '%s'\n", __func__, devPath);
         }
 #endif
         Status = AcpiWalkResources(handle, "_CRS", acpiAttachDevResource, NULL);

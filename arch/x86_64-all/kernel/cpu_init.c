@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/config.h>
@@ -78,7 +77,7 @@ static int cpu_Init(struct KernelBase *KernelBase)
         D(bug("[Kernel] %s: Enabling #XF & XGETVB ...\n", __func__);)
         /* Enable #XF instead of #UD when a SIMD exception occurs
          * Enable xgetvb/xsetvb
-         */ 
+         */
         wrcr(cr4, rdcr(cr4) | _CR4_OSXMMEXCPT | _CR4_OSXSBV);
 #endif
         D(bug("[Kernel] %s: Enabling Saving AVX context...\n", __func__);)
@@ -88,7 +87,7 @@ static int cpu_Init(struct KernelBase *KernelBase)
             "    or         $0b111, %%eax\n\t"                                          /* Set FPU, XMM, YMM bits                       */
             "    mov        %%eax, %0\n\t\n"
             "    xsetbv\n\t"                                                            /* Save back to XCR0                            */
-            : "=m"(featMask) : : "%eax",  "%rcx"
+            : "=m"(featMask) : : "%rax",  "%rcx",  "%rdx"
             );
 
         D(

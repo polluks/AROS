@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2017, The AROS Development Team. All rights reserved.
 
     Desc: gfx Hidd for linux framebuffer
-    Lang: english
 */
 
 /*
@@ -46,7 +44,7 @@
 #undef LSD
 #define LSD(cl) (&LIBBASE->lsd)
 
-static int LinuxFB_Startup(LIBBASETYPEPTR LIBBASE) 
+static int LinuxFB_Startup(LIBBASETYPEPTR LIBBASE)
 {
     int res = FALSE;
     struct GfxBase *GfxBase;

@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2017, The AROS Development Team. All rights reserved.
 
     Desc: Onscreen bitmap class for Linux FB Gfx Hidd
-    Lang: English.
 */
 
 #define DEBUG 0
@@ -50,12 +48,12 @@ BOOL LinuxFBBM__Hidd_BitMap__SetColors(OOP_Class *cl, OOP_Object *o, struct pHid
 
     if ((msg->firstColor + msg->numColors) > (1 << (data->bpp)))
     {
-	return FALSE;
+        return FALSE;
     }
 
     if (!OOP_DoSuperMethod(cl, o, (OOP_Msg)msg))
     {
-	return FALSE;
+        return FALSE;
     }
 
     if (data->fbdev != -1)
@@ -63,9 +61,9 @@ BOOL LinuxFBBM__Hidd_BitMap__SetColors(OOP_Class *cl, OOP_Object *o, struct pHid
         struct LinuxFB_staticdata *fsd = LSD(cl);
         ULONG xc_i, col_i;
 
-	for ( xc_i = msg->firstColor, col_i = 0;
-    	      col_i < msg->numColors; 
-	      xc_i ++, col_i ++)
+        for ( xc_i = msg->firstColor, col_i = 0;
+              col_i < msg->numColors;
+              xc_i ++, col_i ++)
         {
             struct fb_cmap col =
             {
@@ -77,7 +75,7 @@ BOOL LinuxFBBM__Hidd_BitMap__SetColors(OOP_Class *cl, OOP_Object *o, struct pHid
             };
 
             Hidd_UnixIO_IOControlFile(fsd->unixio, data->fbdev, FBIOPUTCMAP, &col, NULL);
-	}
+        }
     }
     return TRUE;
 }

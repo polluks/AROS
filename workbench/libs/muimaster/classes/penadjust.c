@@ -1,6 +1,5 @@
 /*
-    Copyright © 2002-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2002-2020, The AROS Development Team. All rights reserved.
 */
 
 #define MUIMASTER_YES_INLINE_STDARG
@@ -165,7 +164,7 @@ IPTR Penadjust__OM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
             MUIA_Slider_Horiz, TRUE,
             MUIA_Numeric_Min,  -128,
             MUIA_Numeric_Max,  127,
-        End),  
+        End),
         Child, (IPTR) (coloradjobj = (Object *)ColoradjustObject, End),
         
         TAG_MORE, (IPTR) msg->ops_AttrList

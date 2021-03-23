@@ -1,6 +1,5 @@
 /*
-    Copyright © 2013-2015, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2013-2015, The AROS Development Team. All rights reserved.
 */
 
 #define DEBUG 0
@@ -51,14 +50,14 @@ void *(*__AllocMem)();
 
 #define ExecAllocMem(bytesize, requirements)        \
 AROS_CALL2(void *, __AllocMem,                      \
-		AROS_LCA(ULONG, byteSize,     D0),			\
-		AROS_LCA(ULONG, requirements, D1),			\
-		struct ExecBase *, SysBase)
+                AROS_LCA(ULONG, byteSize,     D0),                      \
+                AROS_LCA(ULONG, requirements, D1),                      \
+                struct ExecBase *, SysBase)
 
 AROS_LH2(APTR, AllocMem,
-	AROS_LHA(ULONG, byteSize,     D0),
-	AROS_LHA(ULONG, requirements, D1),
-	struct ExecBase *, SysBase, 33, Kernel)
+        AROS_LHA(ULONG, byteSize,     D0),
+        AROS_LHA(ULONG, requirements, D1),
+        struct ExecBase *, SysBase, 33, Kernel)
 {
     AROS_LIBFUNC_INIT
 

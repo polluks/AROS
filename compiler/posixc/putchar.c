@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     C99 function putchar()
 */
@@ -15,10 +14,10 @@
 
 #include <stdio.h>
 
-	int __posixc_putchar(
+        int __posixc_putchar(
 
 /*  SYNOPSIS */
-	int c)
+        int c)
 
 /*  FUNCTION
 

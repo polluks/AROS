@@ -1,6 +1,5 @@
 /*
-    Copyright © 2003, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2003, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/dos.h>
@@ -15,7 +14,7 @@ LONG file_size = 0;
 BPTR FILE_Open( CONST_STRPTR path, LONG mode )
 {
     LONG mode2dos[] = { MODE_OLDFILE, MODE_NEWFILE };
-    BPTR file; 
+    BPTR file;
 
     if( mode != MODE_READ && mode != MODE_WRITE )
          goto error;
@@ -34,7 +33,7 @@ error:
 
 LONG FILE_Read( BPTR file, APTR buffer, LONG length )
 {
-    LONG read = 0, 
+    LONG read = 0,
          left = length;
     
     while( read < length )

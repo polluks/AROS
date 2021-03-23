@@ -1,6 +1,5 @@
 /*
     Copyright 2010, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <hidd/agp.h>
@@ -86,7 +85,7 @@ BOOL METHOD(SiSBridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     bridgedev = gbddata->bridge->PciDevice;
     bridgeagpcap = gbddata->bridge->AgpCapability;
 
-    /* Getting version info */ 
+    /* Getting version info */
     major = (readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) >> 4) & 0xf;
     minor = readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) & 0xf;
     D(bug("[AGP] [SiS] Read config: AGP version %d.%d\n", major, minor));

@@ -1,9 +1,7 @@
 /*
-    Copyright © 2000-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2000-2013, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: English
 */
 
 #include "bsdsocket_intern.h"
@@ -50,18 +48,18 @@
     D(bug("[bsdsocket] Inet_NToA(0x%08lX)\n", in));
     a.s_addr = in;
 
-    Forbid();    
+    Forbid();
 
     res = WSinet_ntoa(a);
     if (res)
-	res = CopyString(res, taskBase->pool);
+        res = CopyString(res, taskBase->pool);
 
     Permit();
 
     if (res)
     {
     FreeVecPooled(taskBase->inaddr, taskBase->pool);
-	taskBase->inaddr = res;
+        taskBase->inaddr = res;
     }
 
     Permit();

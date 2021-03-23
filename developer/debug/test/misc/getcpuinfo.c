@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2017, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/exec.h>
@@ -21,7 +20,7 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase);
 static ULONG getcpucount()
 {
     ULONG cpucount = 0;
-    struct TagItem tags [] = 
+    struct TagItem tags [] =
     {
         {GCIT_NumberOfProcessors, (IPTR)&cpucount},
         {TAG_DONE, TAG_DONE}
@@ -40,7 +39,7 @@ struct TagDescription
     CONST_STRPTR Description;
 };
 
-struct TagDescription VectorUnit [] = 
+struct TagDescription VectorUnit [] =
 {
     { VECTORTYPE_NONE, "None"},
     { VECTORTYPE_ALTIVEC, "AltiVec"},
@@ -56,7 +55,7 @@ struct TagDescription VectorUnit [] =
     { VECTORTYPE_3DNOW, "3DNow"},
     { VECTORTYPE_3DNOWEXT, "3DNow Ext"},
     { VECTORTYPE_SSE4A, "SSE4A"},
-    { 0, NULL }        
+    { 0, NULL }
 };
 
 struct TagDescription ProcessorFamily [] =
@@ -87,7 +86,7 @@ struct TagDescription ProcessorArchitecture [] =
     { PROCESSORARCH_PPC, "PowerPC" },
     { PROCESSORARCH_X86, "X86" },
     { PROCESSORARCH_ARM, "ARM" },
-    { 0, NULL }   
+    { 0, NULL }
 };
 
 struct TagDescription CurrentEndianness [] =

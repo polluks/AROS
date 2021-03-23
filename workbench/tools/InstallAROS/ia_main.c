@@ -1,6 +1,5 @@
 /*
-    Copyright © 2003-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2003-2021, The AROS Development Team. All rights reserved.
 */
 
 #define INTUITION_NO_INLINE_STDARG
@@ -481,7 +480,7 @@ int main(int argc, char *argv[])
                 Child, (IPTR) VGroup,
                     Child, (IPTR) HGroup,
                         Child, (IPTR) VGroup,
-                            MUIA_Background, MUII_SHADOW,    
+                            MUIA_Background, MUII_SHADOW,
 
                             Child, (IPTR) ImageObject,
                                 MUIA_Frame,             MUIV_Frame_None,

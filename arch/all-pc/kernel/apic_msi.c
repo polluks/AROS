@@ -1,6 +1,5 @@
 /*
-    Copyright © 2017-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2017-2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/kernel.h>
@@ -33,7 +32,7 @@ ULONG core_APIC_AllocMSI(ULONG count)
     )
 
     if (apicPrivate->msibase)
-    {        
+    {
         UBYTE first = apicPrivate->msilast;
         if (!first)
             first = apicPrivate->msibase;

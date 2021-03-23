@@ -1,6 +1,5 @@
 /*
-    Copyright © 2010-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2013, The AROS Development Team. All rights reserved.
 */
 
 #include <hidd/agp.h>
@@ -41,7 +40,7 @@
     (x == 0x2772) || /* 82945G_IG */    \
     (x == 0x27A2) || /* 82945GM_IG */   \
     (x == 0x27AE)    /* 82945GME_IG */  \
-)  
+)
 
 /* NON-PUBLIC METHODS */
 VOID METHOD(i915BridgeDevice, Hidd_AGPBridgeDevice, FlushGattTable)
@@ -236,7 +235,7 @@ VOID METHOD(i915BridgeDevice, Hidd_AGPBridgeDevice, BindMemory)
 
     /* Flush incomming memory - will be done in flush_cpu_cache below */
 
-    /* Additional mask for cached memory */    
+    /* Additional mask for cached memory */
     if (msg->type ==     vHidd_AGP_CachedMemory)
         mask |= 0x00000006;
     

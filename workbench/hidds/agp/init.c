@@ -1,6 +1,5 @@
 /*
     Copyright 2010, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <aros/symbolsets.h>
@@ -36,7 +35,7 @@ static int AgpHidd_InitLib(LIBBASETYPEPTR LIBBASE)
     LIBBASE->sd.hiddAGPBridgeDeviceAB = OOP_ObtainAttrBase((STRPTR)IID_Hidd_AGPBridgeDevice);
     LIBBASE->sd.hiddPCIDeviceAB = OOP_ObtainAttrBase((STRPTR)IID_Hidd_PCIDevice);
 
-    LIBBASE->sd.pcibus = OOP_NewObject(NULL, CLID_Hidd_PCI, NULL); 
+    LIBBASE->sd.pcibus = OOP_NewObject(NULL, CLID_Hidd_PCI, NULL);
 
     if (LIBBASE->sd.hiddAGPBridgeDeviceAB && LIBBASE->sd.pcibus && LIBBASE->sd.hiddPCIDeviceAB)
         return TRUE;

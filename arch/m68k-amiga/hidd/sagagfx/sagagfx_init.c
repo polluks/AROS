@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: SAGA Gfx Hidd for V4 AROS
-    Lang: english
 */
 
 #define __OOP_NOATTRBASES__
@@ -38,8 +36,8 @@ static void FreeAttrBases(const STRPTR *iftable, OOP_AttrBase *bases, ULONG num)
 
     for (i = 0; i < num; i++)
     {
-	if (bases[i])
-	    OOP_ReleaseAttrBase(iftable[i]);
+        if (bases[i])
+            OOP_ReleaseAttrBase(iftable[i]);
     }
 }
 
@@ -49,12 +47,12 @@ static BOOL GetAttrBases(const STRPTR *iftable, OOP_AttrBase *bases, ULONG num)
 
     for (i = 0; i < num; i++)
     {
-	bases[i] = OOP_ObtainAttrBase(iftable[i]);
-	if (!bases[i])
-	{
-	    FreeAttrBases(iftable, bases, i);
-	    return FALSE;
-	}
+        bases[i] = OOP_ObtainAttrBase(iftable[i]);
+        if (!bases[i])
+        {
+            FreeAttrBases(iftable, bases, i);
+            return FALSE;
+        }
     }
 
     return TRUE;

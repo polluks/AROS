@@ -1,7 +1,6 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    Copyright © 2001-2003, The MorphOS Development Team. All Rights Reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2001-2003, The MorphOS Development Team. All Rights Reserved.
 */
 
 #include <proto/exec.h>
@@ -121,7 +120,7 @@
                     {
                         /* FIXME: handle the error condition if OpenWorkBench() fails */
                         /* What to do if OpenWorkBench() fails? Try until it succeeds?
-                           Try for a finite amount of times? Don't try and do nothing 
+                           Try for a finite amount of times? Don't try and do nothing
                            at all? */
                     }
                 }

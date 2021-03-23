@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020 The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020 The AROS Development Team. All rights reserved.
 
     Desc: Filenote CLI command
-    Lang: english
 */
 
 /*****************************************************************************
@@ -92,11 +90,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#ifdef __AROS__
-#include <aros/rt.h>
-#else
-#define RT_Init()
-#define RT_Exit()
+#ifndef __AROS__
 #define IsDosEntryA(file, flags) 0
 #endif
 
@@ -127,8 +121,6 @@ int main(void)
     struct AnchorPath * apath;
     IPTR                args[TOTAL_ARGS] = { 0, (IPTR)"", 0, 0};
     int                 Return_Value;
-
-    RT_Init();
 
     Return_Value = RETURN_OK;
 
@@ -168,8 +160,6 @@ int main(void)
     }
 
     FreeVec(apath);
-
-    RT_Exit();
 
     return Return_Value;
 

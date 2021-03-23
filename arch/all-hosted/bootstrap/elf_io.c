@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <elfloader.h>
@@ -17,7 +16,7 @@
 struct ExtELFNode
 {
     struct ELFNode node;
-    char FullName[1];		/* We need to store the full pathname */
+    char FullName[1];           /* We need to store the full pathname */
 };
 
 struct ELFNode *FirstELF = NULL;
@@ -51,8 +50,8 @@ void FreeKernelList(void)
     
     for (n = FirstELF; n; n = n2)
     {
-	n2 = n->Next;
-	free(n);
+        n2 = n->Next;
+        free(n);
     }
 
     /* Reset list pointers. The list can ocassionally be reused (on Android, for example) */
@@ -83,11 +82,11 @@ int read_block(void *file, unsigned long offset, void *dest, unsigned long lengt
 
     err = fseek(file, offset, SEEK_SET);
     if (err)
-    	return errno;
+        return errno;
 
     err = fread(dest, length, 1, file);
     if (err == 0)
-    	return errno;
+        return errno;
 
     return 0;
 }
@@ -101,16 +100,16 @@ void *load_block(void *file, unsigned long offset, unsigned long length, unsigne
     
     if (dest)
     {
-	*err = read_block(file, offset, dest, length);
-	if (*err)
-	{
-	    free(dest);
-	    return NULL;
-	}
-	*err = 0;
+        *err = read_block(file, offset, dest, length);
+        if (*err)
+        {
+            free(dest);
+            return NULL;
+        }
+        *err = 0;
     }
     else
-    	*err = errno;
+        *err = errno;
 
     return dest;
 }

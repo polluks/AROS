@@ -1,6 +1,5 @@
 /*
-    Copyright © 2007-2018, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2007-2018, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/symbolsets.h>
@@ -43,7 +42,7 @@ AROS_LH2(int, UUID_Parse,
         {
             if (isxdigit(*in))
             {
-                tmp.time_low = (tmp.time_low  << 4) | value(*in); 
+                tmp.time_low = (tmp.time_low  << 4) | value(*in);
             }
             else return 0;
         }
@@ -55,7 +54,7 @@ AROS_LH2(int, UUID_Parse,
         {
             if (isxdigit(*in))
             {
-                tmp.time_mid = (tmp.time_mid << 4) | value(*in); 
+                tmp.time_mid = (tmp.time_mid << 4) | value(*in);
             }
             else return 0;
         }
@@ -67,8 +66,8 @@ AROS_LH2(int, UUID_Parse,
         {
             if (isxdigit(*in))
             {
-                tmp.time_hi_and_version = 
-                    (tmp.time_hi_and_version << 4) | value(*in); 
+                tmp.time_hi_and_version =
+                    (tmp.time_hi_and_version << 4) | value(*in);
             }
             else return 0;
         }

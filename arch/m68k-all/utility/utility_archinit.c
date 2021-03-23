@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -27,17 +26,17 @@ static int UtilityM68K_ArchInit(struct Library *UtilityBase)
     */
     if(SysBase->AttnFlags & AFF_68020)
     {
-	SetFunc(LVOSMult32, SMult32_020);
-	SetFunc(LVOUMult32, UMult32_020);
-	SetFunc(LVOSDivMod32, SDivMod32_020);
-	SetFunc(LVOUDivMod32, UDivMod32_020);
+        SetFunc(LVOSMult32, SMult32_020);
+        SetFunc(LVOUMult32, UMult32_020);
+        SetFunc(LVOSDivMod32, SDivMod32_020);
+        SetFunc(LVOUDivMod32, UDivMod32_020);
 
-	/* The 060 doesn't have some of the instructions I use... */
-	if((SysBase->AttnFlags & AFF_68060) == 0)
-	{
-	    SetFunc(LVOSMult64, SMult64_020);
-	    SetFunc(LVOUMult64, UMult64_020);
-	}
+        /* The 060 doesn't have some of the instructions I use... */
+        if((SysBase->AttnFlags & AFF_68060) == 0)
+        {
+            SetFunc(LVOSMult64, SMult64_020);
+            SetFunc(LVOUMult64, UMult64_020);
+        }
     }
 
     return TRUE;

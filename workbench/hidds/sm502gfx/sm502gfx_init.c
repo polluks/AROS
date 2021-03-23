@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: sm502 Gfx Hidd for standalone i386 AROS
-    Lang: english
 */
 
 #define __OOP_NOATTRBASES__
@@ -103,7 +101,7 @@ static int SM502Gfx_Init(LIBBASETYPEPTR LIBBASE)
 
     LIBBASE->vsd.basebm = OOP_FindClass(CLID_Hidd_BitMap);
 
-    /* 
+    /*
      * It is unknown (and no way to know) what hardware part this driver uses.
      * In order to avoid conflicts with disk-based native-mode hardware
      * drivers it needs to be removed from the system when some other driver

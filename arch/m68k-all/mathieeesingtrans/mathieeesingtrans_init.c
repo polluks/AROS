@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: Init of 68k/FPU mathieeesingtrans.library
-    Lang: english
 */
 #include <aros/symbolsets.h>
 #include <aros/libcall.h>
@@ -39,26 +37,26 @@ static int IEEESPT_Init(struct Library *lh)
 {
     MathIeeeSingBasBase = OpenLibrary ("mathieeesingbas.library", 39);
     if (!MathIeeeSingBasBase)
-	return FALSE;
+        return FALSE;
 
     if (SysBase->AttnFlags & (AFF_68881 | AFF_68882 | AFF_FPU40)) {
-	SetFunc(LVOIEEESPAtan,          ATan_6888x);
-	SetFunc(LVOIEEESPSin,           Sin_6888x);
-	SetFunc(LVOIEEESPCos,           Cos_6888x);
-	SetFunc(LVOIEEESPTan,           Tan_6888x);
-	SetFunc(LVOIEEESPSincos,        Sincos_6888x);
-	SetFunc(LVOIEEESPSinh,          Sinh_6888x);
-	SetFunc(LVOIEEESPCosh,          Cosh_6888x);
-	SetFunc(LVOIEEESPTanh,          Tanh_6888x);
-	SetFunc(LVOIEEESPExp,           Exp_6888x);
-	SetFunc(LVOIEEESPLog,           Log_6888x);
-	/* SetFunc(LVOIEEESPPow,        Pow_6888x); */
-	SetFunc(LVOIEEESPSqrt,          Sqrt_6888x);
-	/* SetFunc(LVOIEEESPTieee,      Tieee_6888x); */
-	/* SetFunc(LVOIEEESPFieee,      Fieee_6888x); */
-	SetFunc(LVOIEEESPAsin,          Asin_6888x);
-	SetFunc(LVOIEEESPAcos,          Acos_6888x);
-	SetFunc(LVOIEEESPLog10,         Log10_6888x);
+        SetFunc(LVOIEEESPAtan,          ATan_6888x);
+        SetFunc(LVOIEEESPSin,           Sin_6888x);
+        SetFunc(LVOIEEESPCos,           Cos_6888x);
+        SetFunc(LVOIEEESPTan,           Tan_6888x);
+        SetFunc(LVOIEEESPSincos,        Sincos_6888x);
+        SetFunc(LVOIEEESPSinh,          Sinh_6888x);
+        SetFunc(LVOIEEESPCosh,          Cosh_6888x);
+        SetFunc(LVOIEEESPTanh,          Tanh_6888x);
+        SetFunc(LVOIEEESPExp,           Exp_6888x);
+        SetFunc(LVOIEEESPLog,           Log_6888x);
+        /* SetFunc(LVOIEEESPPow,        Pow_6888x); */
+        SetFunc(LVOIEEESPSqrt,          Sqrt_6888x);
+        /* SetFunc(LVOIEEESPTieee,      Tieee_6888x); */
+        /* SetFunc(LVOIEEESPFieee,      Fieee_6888x); */
+        SetFunc(LVOIEEESPAsin,          Asin_6888x);
+        SetFunc(LVOIEEESPAcos,          Acos_6888x);
+        SetFunc(LVOIEEESPLog10,         Log10_6888x);
     }
     return TRUE;
 }
@@ -66,7 +64,7 @@ static int IEEESPT_Init(struct Library *lh)
 static int IEEESPT_Expunge(struct Library *lh)
 {
     if (MathIeeeSingBasBase)
-	CloseLibrary ((struct Library *)MathIeeeSingBasBase);
+        CloseLibrary ((struct Library *)MathIeeeSingBasBase);
     
     return TRUE;
 }

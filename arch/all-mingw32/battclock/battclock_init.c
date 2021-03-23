@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #define DEBUG 0
@@ -29,15 +28,15 @@ static int BattClock_Init(struct BattClockBase *BattClockBase)
     if (HostLibBase) {
         BattClockBase->Lib = HostLib_Open("kernel32.dll", NULL);
         if (BattClockBase->Lib) {
-    	    BattClockBase->KernelIFace = (struct KernelInterface *)HostLib_GetInterface(BattClockBase->Lib, Symbols, &r);
-    	    D(bug("[battclock] KernelIFace = 0x%08lX\n", BattClockBase->KernelIFace));
-    	    if (BattClockBase->KernelIFace) {
-    	        if (!r)
-    	            return 1;
-    	        HostLib_DropInterface((APTR)BattClockBase->KernelIFace);
-    	    }
-    	    HostLib_Close(BattClockBase->Lib, NULL);
-    	}
+            BattClockBase->KernelIFace = (struct KernelInterface *)HostLib_GetInterface(BattClockBase->Lib, Symbols, &r);
+            D(bug("[battclock] KernelIFace = 0x%08lX\n", BattClockBase->KernelIFace));
+            if (BattClockBase->KernelIFace) {
+                if (!r)
+                    return 1;
+                HostLib_DropInterface((APTR)BattClockBase->KernelIFace);
+            }
+            HostLib_Close(BattClockBase->Lib, NULL);
+        }
     }
     return 0;
 }

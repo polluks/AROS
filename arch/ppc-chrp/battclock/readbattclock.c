@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2013, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
 
     Desc: ReadBattClock() function.
-    Lang: english
 */
 #include "battclock_intern.h"
 
@@ -25,7 +23,7 @@ AROS_LH0(ULONG, ReadBattClock,
     ULONG secs;
     ULONG out[8];
 
-	RTASCall("get-time-of-day", 0, 8, out, NULL);
+        RTASCall("get-time-of-day", 0, 8, out, NULL);
 
     date.year  = out[0];
     date.month = out[1];

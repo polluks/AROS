@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/config.h>
@@ -23,7 +22,7 @@ void krnPanic(struct KernelBase *KernelBase, const char *fmt, ...)
 
     /* Prepend the header */
     while (*hdr)
-	*ptr++ = *hdr++;
+        *ptr++ = *hdr++;
 
     /* vsprintf() here comes from librom.a */
     va_start(ap, fmt);
@@ -32,9 +31,9 @@ void krnPanic(struct KernelBase *KernelBase, const char *fmt, ...)
 
     if (alertPipe == -1)
     {
-    	/* Very early panic (failure to load host's libc). Just dump to debug output. */
-    	bug(panicBuffer);
-    	return;
+        /* Very early panic (failure to load host's libc). Just dump to debug output. */
+        bug(panicBuffer);
+        return;
     }
 
     /*

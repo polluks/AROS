@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     Code to parse the command line options and the module config file for
     the genmodule program
@@ -20,7 +19,7 @@
 const static char bannertemplate[] =
     "/*\n"
     "    *** Automatically generated from '%s'. Edits will be lost. ***\n"
-    "    Copyright \xA9 1995-%4u, The AROS Development Team. All rights reserved.\n"
+    "    Copyright (C) 1995-%4u, The AROS Development Team. All rights reserved.\n"
     "*/\n";
 
 char*

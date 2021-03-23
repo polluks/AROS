@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2019, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2019, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: English.
 */
 
 #ifdef DEBUG
@@ -19,10 +17,10 @@
 
 #ifdef OnBitmap
 /*********  BitMap::Clear()  *************************************/
-VOID MNAME_BM(Clear)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_Clear *msg) 
+VOID MNAME_BM(Clear)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_Clear *msg)
 {
     struct BitmapData *data = OOP_INST_DATA(cl, o);
-    IPTR    	    	width, height;
+    IPTR                width, height;
     BOOL done = FALSE;
 
     D(bug(DEBUGNAME " %s()\n", __func__);)
@@ -74,7 +72,7 @@ VOID MNAME_BM(UnMapPixel)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_Unma
 
 #endif
 
-BOOL MNAME_BM(SetColors)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_SetColors *msg) 
+BOOL MNAME_BM(SetColors)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_SetColors *msg)
 {
     struct BitmapData *data = OOP_INST_DATA(cl, o);
     HIDDT_PixelFormat *pf;
@@ -276,9 +274,9 @@ VOID MNAME_BM(GetImage)(OOP_Class *cl, OOP_Object *o, struct pHidd_BitMap_GetIma
             HIDDT_Pixel *p = (HIDDT_Pixel *)src;
             xcnt = msg->width;
 
-			CopyMem(buffer, p, xcnt * data->bytesperpix);
+                        CopyMem(buffer, p, xcnt * data->bytesperpix);
 
-			buffer += (xcnt * data->bytesperpix);
+                        buffer += (xcnt * data->bytesperpix);
             buffer += restadd;
             src += msg->modulo;
             ycnt--;

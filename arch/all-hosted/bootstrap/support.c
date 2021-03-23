@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include "support.h"
@@ -22,10 +21,10 @@ char *getosversion(const char *version)
 char *namepart(char *name)
 {
     while (*name)
-	name++;
+        name++;
 
     while((name[-1] != ':') && (name[-1] != '\\') && (name[-1] != '/'))
-	name--;
+        name--;
 
     return name;
 }

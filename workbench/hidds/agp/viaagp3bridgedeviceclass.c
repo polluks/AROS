@@ -1,6 +1,5 @@
 /*
     Copyright 2010, The AROS Development Team. All rights reserved.
-    $Id$
 */
 
 #include <hidd/agp.h>
@@ -74,7 +73,7 @@ BOOL METHOD(VIAAgp3BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     bridgedev = gbddata->bridge->PciDevice;
     bridgeagpcap = gbddata->bridge->AgpCapability;
 
-    /* Getting version info */ 
+    /* Getting version info */
     major = (readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) >> 4) & 0xf;
     D(minor = readconfigbyte(bridgedev, bridgeagpcap + AGP_VERSION_REG) & 0xf);
     
@@ -146,9 +145,9 @@ BOOL METHOD(VIAAgp3BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     D(bug("[AGP] [VIA] Reading aperture base: 0x%x\n", (ULONG)gbddata->bridgeaperbase));
 
     /* Set GATT pointer */
-    writeconfiglong(bridgedev, AGP_VIA_AGP3_GATT_BASE, 
+    writeconfiglong(bridgedev, AGP_VIA_AGP3_GATT_BASE,
         ((ULONG)(IPTR)gbddata->gatttable) & 0xfffff000);
-    D(bug("[AGP] [VIA] Set GATT pointer to 0x%x\n", 
+    D(bug("[AGP] [VIA] Set GATT pointer to 0x%x\n",
         ((ULONG)(IPTR)gbddata->gatttable) & 0xfffff000));
     
     /* Enabled GART and GATT */
@@ -162,7 +161,7 @@ BOOL METHOD(VIAAgp3BridgeDevice, Hidd_AGPBridgeDevice, Initialize)
     writeconfiglong(bridgedev, AGP_VIA_AGP3_GART_CTRL,
         ctrlreg | (3<<7));
     
-    D(bug("[AGP] [VIA] Enabled GART and GATT\n")); 
+    D(bug("[AGP] [VIA] Enabled GART and GATT\n"));
 
     gbddata->state = STATE_INITIALIZED;
 

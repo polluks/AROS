@@ -1,6 +1,5 @@
 /*
-    Copyright © 2015, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2015, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/kernel.h>
@@ -12,9 +11,9 @@
 #include <proto/kernel.h>
 
 AROS_LH2I(int, KrnUnmapGlobal,
-	AROS_LHA(void *, virtual, A0),
-	AROS_LHA(uint32_t, length, D0),
-	struct KernelBase *, KernelBase, 17, Kernel)
+        AROS_LHA(void *, virtual, A0),
+        AROS_LHA(uint32_t, length, D0),
+        struct KernelBase *, KernelBase, 17, Kernel)
 {
     AROS_LIBFUNC_INIT
 

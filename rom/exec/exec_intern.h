@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     Desc: Private data belonging to exec.library
-    Lang:
 */
 #ifndef __EXEC_INTERN_H__
 #define __EXEC_INTERN_H__
@@ -108,7 +106,9 @@ struct IntExecBase
 #else
 #define __kernelBase              PrivExecBase(SysBase)->KernelBase
 #endif
+#if !defined(DEBUG_NOPRIVATEINLINE)
 #define DebugBase               PrivExecBase(SysBase)->DebugBase
+#endif
 
 /* IntFlags */
 #define EXECF_MungWall          0x0001                          /* This flag can't be changed at runtime                        */

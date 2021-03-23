@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/exec.h>
@@ -47,7 +46,7 @@ static void printjoyport(ULONG val)
     
     for(i = 31; i >= 0; i--)
     {
-    	printf("%d", (val & (1 << i)) ? 1 : 0);
+        printf("%d", (val & (1 << i)) ? 1 : 0);
     }
     
     printf(" - ");
@@ -105,7 +104,7 @@ int main(int argc, char **argv)
             new = ReadJoyPort(unit);
             if (new != old)
             {
-	            old = new;
+                    old = new;
                 printjoyport(new);
             }
 

@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 
     Function to write defines/modulename.h. Part of genmodule.
 */
@@ -387,7 +386,7 @@ writedefinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
         fprintf(out,
                 "...) \\\n"
                 "({ \\\n"
-        );        
+        );
         for (arglistit = funclistit->arguments, count = 1;
              arglistit != NULL;
              arglistit = arglistit->next, count++

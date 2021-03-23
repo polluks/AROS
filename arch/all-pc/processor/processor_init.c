@@ -1,6 +1,5 @@
 /*
-    Copyright © 2010-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 2010-2021, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/config.h>
@@ -29,6 +28,7 @@ static void Processor_QueryTask(struct ExecBase *SysBase)
     struct ProcessorBase *ProcessorBase;
     struct PQData *pqData;
     struct Task *thisTask;
+    struct MemList *ml;
 
     D(
         bug("[processor.x86] %s()\n", __func__);
@@ -36,7 +36,10 @@ static void Processor_QueryTask(struct ExecBase *SysBase)
     )
 
     thisTask = FindTask(NULL);
-    pqData = thisTask->tc_UserData;
+    ml = (struct MemList *)thisTask->tc_UserData;
+    AddTail(&thisTask->tc_MemEntry, &ml->ml_Node);
+
+    pqData = (struct PQData *)ml->ml_ME[1].me_Addr;
     ProcessorBase = pqData->ProcessorBase;
 
     D(
@@ -73,7 +76,7 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase)
     /*
      * Allocate cpu count + 1 slots
      * and embed UtilityBase in the last.
-    */ 
+    */
     sysprocs = AllocVec((ProcessorBase->cpucount + 1) * sizeof(APTR), MEMF_ANY | MEMF_CLEAR);
     if (sysprocs == NULL)
         return FALSE;
@@ -91,8 +94,8 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase)
 
     for (cpuNo = 0; cpuNo < ProcessorBase->cpucount; cpuNo++)
     {
-    	sysprocs[cpuNo] = AllocMem(sizeof(struct X86ProcessorInformation), MEMF_CLEAR);
-    	if (sysprocs[cpuNo])
+        sysprocs[cpuNo] = AllocMem(sizeof(struct X86ProcessorInformation), MEMF_CLEAR);
+        if (sysprocs[cpuNo])
         {
 #if !defined(__AROSEXEC_SMP__)
             if (cpuNo > 0)
@@ -100,7 +103,7 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase)
 #endif
             cpuNameArg[0] = (IPTR)cpuNo + 1;
 
-            if ((ml = AllocMem(sizeof(struct MemList), MEMF_PUBLIC|MEMF_CLEAR)) != NULL)
+            if ((ml = AllocMem(sizeof(struct MemList) + sizeof(struct MemEntry), MEMF_PUBLIC|MEMF_CLEAR)) != NULL)
             {
                 ml->ml_NumEntries      = 2;
 
@@ -125,12 +128,11 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase)
                                                 TASKTAG_PRI        , 100,
                                                 TASKTAG_PC         , Processor_QueryTask,
                                                 TASKTAG_ARG1       , SysBase,
-                                                TASKTAG_USERDATA, pqData,
+                                                TASKTAG_USERDATA, ml,
                                                 TAG_DONE);
 
                         if (processorQueryTask)
                         {
-                            //AddTail(&processorQueryTask->tc_MemEntry, &ml->ml_Node);
                             continue;
                         }
                         FreeEntry(ml);
@@ -139,13 +141,13 @@ LONG Processor_Init(struct ProcessorBase * ProcessorBase)
                     {
                         bug("[processor.x86] FATAL : Failed to allocate memory for ProcQuery Task name");
                         FreeMem(ml->ml_ME[1].me_Addr, ml->ml_ME[1].me_Length);
-                        FreeMem(ml, sizeof(struct MemList));
+                        FreeMem(ml, sizeof(struct MemList) + sizeof(struct MemEntry));
                     }
                 }
                 else
                 {
                     bug("[processor.x86] FATAL : Failed to allocate memory for ProcQuery Task params");
-                    FreeMem(ml, sizeof(struct MemList));
+                    FreeMem(ml, sizeof(struct MemList) + sizeof(struct MemEntry));
                 }
             }
             else

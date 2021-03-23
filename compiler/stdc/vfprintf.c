@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     Format a string and call a usercallback to output each char.
 */
@@ -17,23 +16,23 @@
     NAME */
 #include <stdio.h>
 
-	int vfprintf (
+        int vfprintf (
 
 /*  SYNOPSIS */
-	FILE	   * restrict stream,
-	const char * restrict format,
-	va_list      args)
+        FILE       * restrict stream,
+        const char * restrict format,
+        va_list      args)
 
 /*  FUNCTION
-	Format a list of arguments and print them on the specified stream.
+        Format a list of arguments and print them on the specified stream.
 
     INPUTS
-	stream - A stream on which one can write
-	format - A printf() format string.
-	args - A list of arguments for the format string.
+        stream - A stream on which one can write
+        format - A printf() format string.
+        args - A list of arguments for the format string.
 
     RESULT
-	The number of characters written.
+        The number of characters written.
 
     NOTES
 

@@ -1,5 +1,5 @@
 /*
-    Copyright © 2004, The AROS Development Team. All rights reserved.
+    Copyright (C) 2004, The AROS Development Team. All rights reserved.
     This file is part of the LoadResource program, which is distributed under
     the terms of version 2 of the GNU General Public License.
 */
@@ -25,8 +25,8 @@ CONST_STRPTR _(ULONG id)
     if (LocaleBase != NULL && catalog != NULL)
     {
         return GetCatalogStr(catalog, id, CatCompArray[id].cca_Str);
-    } 
-    else 
+    }
+    else
     {
         return CatCompArray[id].cca_Str;
     }
@@ -38,8 +38,8 @@ BOOL Locale_Initialize(void)
     if (LocaleBase != NULL)
     {
         catalog = OpenCatalog
-        ( 
-            NULL, CATALOG_NAME, OC_Version, CATALOG_VERSION, TAG_DONE 
+        (
+            NULL, CATALOG_NAME, OC_Version, CATALOG_VERSION, TAG_DONE
         );
     }
     else

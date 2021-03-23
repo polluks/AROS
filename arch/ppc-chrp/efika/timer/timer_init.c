@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2010, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2010, The AROS Development Team. All rights reserved.
 
     Desc: Timer startup and device commands
 */
@@ -73,15 +72,15 @@ static int GM_UNIQUENAME(Init)(LIBBASETYPEPTR LIBBASE)
     void *key = OF_OpenKey("/builtin");
     if (key)
     {
-    	void *prop = OF_FindProperty(key, "reg");
-    	if (prop)
-    	{
-    		intptr_t *mbar = OF_GetPropValue(prop);
-    		slice_timer = (slt_t *)(*mbar + 0x710);
+        void *prop = OF_FindProperty(key, "reg");
+        if (prop)
+        {
+                intptr_t *mbar = OF_GetPropValue(prop);
+                slice_timer = (slt_t *)(*mbar + 0x710);
 
-    		D(bug("MBAR located at %08x\n", *mbar));
-    		D(bug("slice timer at %08x\n", slice_timer));
-    	}
+                D(bug("MBAR located at %08x\n", *mbar));
+                D(bug("slice timer at %08x\n", slice_timer));
+        }
     }
 
     /* Start up the interrupt server */
